@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --verbose --silent --detectOpenHandles",
     "build": "tsc",
-    "start:dev": "node ./src/index.ts",
+    "start:dev": "nodemon ./src/index.ts",
     "start": "node ./dist/index.js"
   },
   "keywords": [],

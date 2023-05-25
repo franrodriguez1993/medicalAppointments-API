@@ -6,17 +6,10 @@ import logger from "./utils/logger";
 const MODE = configServer.server.mode;
 const PORT = configServer.server.port;
 
-async function main() {
-  try {
-    await sequelize.sync();
-    app.listen(PORT, () => {
-      if (MODE === "P") logger.info("Running in Production mode");
-      else logger.info(`Running in development mode http://localhost:${PORT}`);
-    });
-  } catch (e: any) {
-    logger.info(e);
-    logger.error(e.message);
-  }
-}
+const server = app.listen(PORT, async () => {
+  await sequelize.sync();
+  if (MODE === "P") logger.info("Running in Production mode");
+  else logger.info(`Running in development mode http://localhost:${PORT}`);
+});
 
-main();
+export { app, server };
