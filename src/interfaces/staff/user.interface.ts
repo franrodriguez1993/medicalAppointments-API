@@ -1,13 +1,13 @@
 import { Model } from "sequelize";
 
-export interface staffBodyIF {
+export interface userBodyIF {
   id?: string;
   name: string;
   lastname: string;
   mail: string;
-  password: string;
   cellphone: string;
   dni: string;
+  birthday: string;
 }
 
-export interface staffObjectIF extends staffBodyIF, Model<staffBodyIF> {}
+export interface userObjectIF extends userBodyIF, Model<userBodyIF> {}

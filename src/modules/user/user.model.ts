@@ -1,13 +1,13 @@
 import { sequelize } from "../../config/postgresql";
 import { DataTypes, Model, BuildOptions } from "sequelize";
-import { staffObjectIF } from "../../interfaces/staff/staff.interface";
+import { userObjectIF } from "../../interfaces/staff/user.interface";
 
-type staffTypeModel = typeof Model & {
-  new (values?: object, options?: BuildOptions): staffObjectIF;
+type userTypeModel = typeof Model & {
+  new (values?: object, options?: BuildOptions): userObjectIF;
 };
 
-const Staff = sequelize.define(
-  "staffs",
+const User = sequelize.define(
+  "users",
   {
     id: {
       type: DataTypes.STRING,
@@ -26,10 +26,6 @@ const Staff = sequelize.define(
       allowNull: false,
       unique: true,
     },
-    password: {
-      type: DataTypes.STRING(60),
-      allowNull: false,
-    },
     cellphone: {
       type: DataTypes.STRING(20),
       allowNull: false,
@@ -39,8 +35,12 @@ const Staff = sequelize.define(
       allowNull: false,
       unique: true,
     },
+    birthday: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
   { timestamps: true, freezeTableName: true }
-) as staffTypeModel;
+) as userTypeModel;
 
-export default Staff;
+export default User;
