@@ -1,9 +1,10 @@
 import { sequelize } from "../../config/postgresql";
 import { DataTypes, Model, BuildOptions } from "sequelize";
-import { userObjectIF } from "../../interfaces/staff/user.interface";
+import { userOIF } from "../../interfaces/user/user.interface";
+import Staff from "../staff/staff.model";
 
 type userTypeModel = typeof Model & {
-  new (values?: object, options?: BuildOptions): userObjectIF;
+  new (values?: object, options?: BuildOptions): userOIF;
 };
 
 const User = sequelize.define(
@@ -42,5 +43,17 @@ const User = sequelize.define(
   },
   { timestamps: true, freezeTableName: true }
 ) as userTypeModel;
+
+/**  JOIN  **/
+User.hasOne(Staff, {
+  foreignKey: "id_user",
+  onDelete: "CASCADE",
+  hooks: true,
+});
+Staff.belongsTo(User, {
+  targetKey: "id",
+  hooks: true,
+  onDelete: "CASCADE",
+});
 
 export default User;

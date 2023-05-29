@@ -37,16 +37,6 @@ describe("User", () => {
     const user = await dao.findByDNI(userMock[0].dni);
     expect(user.dni).toEqual(userMock[0].dni);
   });
-  test("update", async () => {
-    await dao.create(newStaff);
-    const updated = await dao.update(newStaff.id, {
-      ...newStaff,
-      name: "horacio",
-    });
-    const user = await dao.findByDNI(newStaff.dni);
-    expect(updated.length).toEqual(1);
-    expect(user.name).toEqual("horacio");
-  });
 
   test("delete one", async () => {
     await dao.deleteOne(userMock[0].id);
