@@ -43,18 +43,18 @@ export const usernameValidator = [
 ];
 
 /** CHECK PASSWORD  **/
-export const checkPassword = [
+export const passwordValidator = [
   body("password").trim().isLength({ min: 6, max: 30 }),
   validatorManager,
 ];
 
 /** CHECK SALARY  **/
-export const checkSalary = [
+export const salaryValidator = [
   body("salary").trim().isFloat({ min: 500, max: 9999 }),
   validatorManager,
 ];
 
-export const checkStatus = [
+export const statusValidator = [
   body("status").trim().isLength({ min: 3, max: 20 }).escape(),
   validatorManager,
 ];

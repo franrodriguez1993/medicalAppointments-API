@@ -8,9 +8,9 @@ import {
   UpdatePDStaffBody,
   usernameValidator,
   mailValidator,
-  checkPassword,
-  checkSalary,
-  checkStatus,
+  passwordValidator,
+  salaryValidator,
+  statusValidator,
 } from "../../middlewares/bodyStaffValidator";
 
 const controller = new StaffController();
@@ -32,12 +32,12 @@ staffRouter.put(
 );
 staffRouter.put(
   "/update/password/:id",
-  checkPassword,
+  passwordValidator,
   controller.changePassword
 );
-staffRouter.put("/update/salary/:id", checkSalary, controller.updateSalary);
+staffRouter.put("/update/salary/:id", salaryValidator, controller.updateSalary);
 
-staffRouter.put("/update/status/:id", checkStatus, controller.updateStatus);
+staffRouter.put("/update/status/:id", statusValidator, controller.updateStatus);
 
 staffRouter.get("/:id", controller.findByID);
 

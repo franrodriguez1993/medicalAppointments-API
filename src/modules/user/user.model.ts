@@ -2,6 +2,7 @@ import { sequelize } from "../../config/postgresql";
 import { DataTypes, Model, BuildOptions } from "sequelize";
 import { userOIF } from "../../interfaces/user/user.interface";
 import Staff from "../staff/staff.model";
+import Doctor from "../doctor/models/doctor.model";
 
 type userTypeModel = typeof Model & {
   new (values?: object, options?: BuildOptions): userOIF;
@@ -51,6 +52,17 @@ User.hasOne(Staff, {
   hooks: true,
 });
 Staff.belongsTo(User, {
+  targetKey: "id",
+  hooks: true,
+  onDelete: "CASCADE",
+});
+
+User.hasOne(Doctor, {
+  foreignKey: "id_user",
+  onDelete: "CASCADE",
+  hooks: true,
+});
+Doctor.belongsTo(User, {
   targetKey: "id",
   hooks: true,
   onDelete: "CASCADE",

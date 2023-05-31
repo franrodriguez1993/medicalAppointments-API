@@ -170,3 +170,44 @@
 [2023-05-29T16:47:30.179] [INFO] default - Running in development mode http://localhost:5000
 [2023-05-29T17:32:47.862] [INFO] default - Running in development mode http://localhost:5000
 [2023-05-29T17:36:19.272] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T16:31:22.112] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T16:59:21.250] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T17:16:31.154] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:16:31.163] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:16:31.165] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:16:31.166] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:16:31.168] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:16:31.244] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:18:06.504] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:18:06.512] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:18:06.514] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:18:06.516] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:18:06.518] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:18:06.594] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:19:03.378] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T17:19:32.609] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:19:32.621] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:19:32.624] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:19:32.627] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:19:32.631] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:19:32.850] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:20:33.708] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T17:20:57.444] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:20:57.453] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:20:57.455] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:20:57.457] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:20:57.460] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:20:57.569] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:22:49.437] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:22:49.443] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:22:49.445] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:22:49.447] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:22:49.448] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:22:49.537] [ERROR] default - SequelizeConnectionError: la autentificación password falló para el usuario «franco»
+[2023-05-30T17:23:25.460] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T17:31:37.901] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T17:32:25.306] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T17:33:03.157] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T17:34:08.605] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T17:45:33.434] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-30T17:46:12.344] [INFO] default - Running in development mode http://localhost:5000
