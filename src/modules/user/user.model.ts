@@ -52,6 +52,7 @@ User.hasOne(Staff, {
   hooks: true,
 });
 Staff.belongsTo(User, {
+  foreignKey: "id_user",
   targetKey: "id",
   hooks: true,
   onDelete: "CASCADE",

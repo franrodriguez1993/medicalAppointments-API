@@ -95,7 +95,7 @@ export default class StaffService {
 
     if (!staff) return "STAFF_NOT_FOUND";
 
-    return await daouser.update(staff.id_user, data);
+    return await daouser.update(staff.user.id, data);
   }
 
   /**  CHANGE MAIL **/
@@ -106,7 +106,7 @@ export default class StaffService {
 
     if (!staff) return "STAFF_NOT_FOUND";
 
-    return await daouser.changeMail(staff.id_user, mail);
+    return await daouser.changeMail(staff.user.id, mail);
   }
 
   /**  CHANGE USERNAME **/
@@ -132,9 +132,6 @@ export default class StaffService {
     const staff: staffOIF = await daoStaff.findByID(id);
     if (!staff) return "STAFF_NOT_FOUND";
 
-    const checkPass = await verifyEncrypt(password, staff.password);
-    if (checkPass) return "PASSWORD_IS_THE_SAME";
-
     return await daoStaff.changePassword(id, password);
   }
 
@@ -143,7 +140,7 @@ export default class StaffService {
     if (!uuidValidate(id)) return "INVALID_ID";
     const staff: staffOIF = await daoStaff.findByID(id);
     if (!staff) return "STAFF_NOT_FOUND";
-    return await daouser.findStaff(staff.id_user);
+    return staff;
   }
 
   /**  UPDATE SALARY  **/

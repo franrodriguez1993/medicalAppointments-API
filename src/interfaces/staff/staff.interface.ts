@@ -26,6 +26,7 @@ export interface userStaffBIF extends staffBodyIF, userBIF {}
 
 export interface staffOIF extends staffBodyIF, Model<staffBodyIF> {
   id: string;
+  user: userOIF;
 }
 
 /**

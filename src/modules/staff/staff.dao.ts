@@ -3,6 +3,7 @@ import { staffBodyIF, staffOIF } from "../../interfaces/staff/staff.interface";
 import { encrypt, verifyEncrypt } from "../../utils/bcryptHandler";
 import { UserDao } from "../user/user.dao";
 import { generateToken } from "../../utils/jwtHandler";
+import User from "../user/user.model";
 
 const daoUser = new UserDao();
 
@@ -37,7 +38,14 @@ export default class StaffDao {
   /** FIND BY ID **/
   async findByID(id: string) {
     try {
-      return await Staff.findOne({ where: { id } });
+      return await Staff.findOne({
+        where: { id },
+        attributes: { exclude: ["id_user", "password"] },
+        include: {
+          model: User,
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+        },
+      });
     } catch (e: any) {
       throw new Error(e.message);
     }
@@ -46,7 +54,14 @@ export default class StaffDao {
   /** FIND BY USERNAME **/
   async findByUsername(username: string) {
     try {
-      return await Staff.findOne({ where: { username } });
+      return await Staff.findOne({
+        where: { username },
+        attributes: { exclude: ["id_user", "password"] },
+        include: {
+          model: User,
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+        },
+      });
     } catch (e: any) {
       throw new Error(e.message);
     }
@@ -64,6 +79,10 @@ export default class StaffDao {
   /**  CHANGE PASSWORD  **/
   async changePassword(id: string, password: string) {
     try {
+      const staff: staffOIF = await Staff.findOne({ where: { id } });
+      const checkPass = await verifyEncrypt(password, staff.password);
+      if (checkPass) return "PASSWORD_IS_THE_SAME";
+
       const hashPass = await encrypt(password);
       return await Staff.update({ password: hashPass }, { where: { id } });
     } catch (e: any) {

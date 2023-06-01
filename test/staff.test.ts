@@ -165,20 +165,18 @@ describe("update personal data test", () => {
     const user: staffOIF = await daoStaff.findByUsername(
       staffListMock[0].username
     );
-    const response = await api
-      .put(`/api/v1/staff/update/personal/${user.id}`)
-      .send({
-        name: "jonathan",
-        lastname: "jones",
-        cellphone: "145289653",
-        birthday: "1985/10/5",
-      });
+    const response = await api.put(`/api/v1/staff/${user.id}/personal`).send({
+      name: "jonathan",
+      lastname: "jones",
+      cellphone: "145289653",
+      birthday: "1985/10/5",
+    });
     expect(response.body.msg).toEqual("STAFF_UPDATED");
   });
 
   test("Invalid id", async () => {
     const response = await api
-      .put(`/api/v1/staff/update/personal/dasdadjaj1231saa1`)
+      .put(`/api/v1/staff/dasdadjaj1231saa1/personal`)
       .send({
         name: "jonathan",
         lastname: "jones",
@@ -190,7 +188,7 @@ describe("update personal data test", () => {
 
   test("staff not found", async () => {
     const response = await api
-      .put(`/api/v1/staff/update/personal/${staffListMock[0].id}`)
+      .put(`/api/v1/staff/${staffListMock[0].id}/personal`)
       .send({
         name: "jonathan",
         lastname: "jones",
@@ -208,21 +206,21 @@ describe("change mail", () => {
     );
 
     const response = await api
-      .put(`/api/v1/staff/update/mail/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/mail`)
       .send({ mail: "jonathanlamas@gmail.com" });
     expect(response.body.msg).toEqual("MAIL_UPDATED");
   });
 
   test("invalid id", async () => {
     const response = await api
-      .put(`/api/v1/staff/update/mail/128312319991`)
+      .put(`/api/v1/staff/128312319991/mail`)
       .send({ mail: "jonathanlamas@gmail.com" });
     expect(response.body.msg).toEqual("INVALID_ID");
   });
 
   test("staff not found", async () => {
     const response = await api
-      .put(`/api/v1/staff/update/mail/${staffListMock[0].id}`)
+      .put(`/api/v1/staff/${staffListMock[0].id}/mail`)
       .send({ mail: "jonathanlamas@gmail.com" });
     expect(response.body.msg).toEqual("STAFF_NOT_FOUND");
   });
@@ -232,7 +230,7 @@ describe("change mail", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/mail/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/mail`)
       .send({ mail: staffListMock[0].mail });
     expect(response.body.msg).toEqual("MAIL_IS_THE_SAME");
   });
@@ -242,7 +240,7 @@ describe("change mail", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/mail/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/mail`)
       .send({ mail: "juan carlos" });
     expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
   });
@@ -254,7 +252,7 @@ describe("change username", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/username/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/username`)
       .send({ username: "juancarlos20" });
     expect(response.body.msg).toEqual("USERNAME_UPDATED");
   });
@@ -264,7 +262,7 @@ describe("change username", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/username/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/username`)
       .send({ username: staff.username });
     expect(response.body.msg).toEqual("USERNAME_IS_THE_SAME");
   });
@@ -274,7 +272,7 @@ describe("change username", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/username/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/username`)
       .send({ username: staffListMock[1].username });
     expect(response.body.msg).toEqual("USERNAME_ALREADY_IN_USE");
   });
@@ -284,7 +282,7 @@ describe("change username", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/username/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/username`)
       .send({ username: "a" });
     expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
   });
@@ -293,12 +291,10 @@ describe("change username", () => {
     const staff: staffOIF = await daoStaff.findByUsername(
       staffListMock[0].username
     );
-    const response = await api
-      .put(`/api/v1/staff/update/username/${staff.id}`)
-      .send({
-        username:
-          "abcdeiiiqqiqiqiqiqqedkjasdkjasdkjaskdjaskdajskdajsdkajdkasjdasqweqweqw",
-      });
+    const response = await api.put(`/api/v1/staff/${staff.id}/username`).send({
+      username:
+        "abcdeiiiqqiqiqiqiqqedkjasdkjasdkjaskdjaskdajskdajsdkajdkasjdasqweqweqw",
+    });
     expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
   });
 });
@@ -309,7 +305,7 @@ describe("change password", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/password/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/password`)
       .send({ password: "kukukuku" });
     expect(response.body.msg).toEqual("PASSWORD_UPDATED");
   });
@@ -319,7 +315,7 @@ describe("change password", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/password/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/password`)
       .send({ password: "147258" });
     expect(response.body.msg).toEqual("PASSWORD_IS_THE_SAME");
   });
@@ -329,7 +325,7 @@ describe("change password", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/password/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/password`)
       .send({ password: "11" });
     expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
   });
@@ -339,7 +335,7 @@ describe("change password", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/password/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/password`)
       .send({ password: "11asdasdasdasdasdqj4e2131231231231sdfdsfbpoil567" });
     expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
   });
@@ -371,7 +367,7 @@ describe("update salary", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/salary/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/salary`)
       .send({ salary: 5000 });
 
     expect(response.body.msg).toEqual("SALARY_UPDATED");
@@ -379,7 +375,7 @@ describe("update salary", () => {
 
   test("user not found", async () => {
     const response = await api
-      .put(`/api/v1/staff/update/salary/${staffListMock[0].id}`)
+      .put(`/api/v1/staff/${staffListMock[0].id}/salary`)
       .send({ salary: 5000 });
 
     expect(response.body.msg).toEqual("STAFF_NOT_FOUND");
@@ -387,7 +383,7 @@ describe("update salary", () => {
 
   test("invalid id", async () => {
     const response = await api
-      .put(`/api/v1/staff/update/salary/12312312`)
+      .put(`/api/v1/staff/12312312/salary`)
       .send({ salary: 5000 });
 
     expect(response.body.msg).toEqual("INVALID_ID");
@@ -398,7 +394,7 @@ describe("update salary", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/salary/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/salary`)
       .send({ salary: 50000000 });
 
     expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
@@ -411,7 +407,7 @@ describe("update status", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/status/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/status`)
       .send({ status: "suspended" });
     expect(response.body.msg).toEqual("STATUS_UPDATED");
   });
@@ -421,21 +417,21 @@ describe("update status", () => {
       staffListMock[0].username
     );
     const response = await api
-      .put(`/api/v1/staff/update/status/${staff.id}`)
+      .put(`/api/v1/staff/${staff.id}/status`)
       .send({ status: "vacationnnn" });
     expect(response.body.msg).toEqual("INVALID_STATUS");
   });
 
   test("invalid id", async () => {
     const response = await api
-      .put(`/api/v1/staff/update/status/231ddddd`)
+      .put(`/api/v1/staff/231ddddd/status`)
       .send({ status: "vacation" });
     expect(response.body.msg).toEqual("INVALID_ID");
   });
 
   test("staff not found", async () => {
     const response = await api
-      .put(`/api/v1/staff/update/status/${staffListMock[0].id}`)
+      .put(`/api/v1/staff/${staffListMock[0].id}/status`)
       .send({ status: "vacation" });
     expect(response.body.msg).toEqual("STAFF_NOT_FOUND");
   });

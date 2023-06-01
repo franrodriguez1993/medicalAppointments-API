@@ -20,24 +20,15 @@ const staffRouter = Router();
 staffRouter.post("/register", validateStaffBody, controller.register);
 staffRouter.post("/login", validateLoginBody, controller.login);
 staffRouter.put(
-  "/update/personal/:id",
+  "/:id/personal",
   UpdatePDStaffBody,
   controller.updatePersonalData
 );
-staffRouter.put("/update/mail/:id", mailValidator, controller.changeMail);
-staffRouter.put(
-  "/update/username/:id",
-  usernameValidator,
-  controller.changeUsername
-);
-staffRouter.put(
-  "/update/password/:id",
-  passwordValidator,
-  controller.changePassword
-);
-staffRouter.put("/update/salary/:id", salaryValidator, controller.updateSalary);
-
-staffRouter.put("/update/status/:id", statusValidator, controller.updateStatus);
+staffRouter.put("/:id/mail", mailValidator, controller.changeMail);
+staffRouter.put("/:id/username", usernameValidator, controller.changeUsername);
+staffRouter.put("/:id/password", passwordValidator, controller.changePassword);
+staffRouter.put("/:id/salary", salaryValidator, controller.updateSalary);
+staffRouter.put("/:id/status", statusValidator, controller.updateStatus);
 
 staffRouter.get("/:id", controller.findByID);
 

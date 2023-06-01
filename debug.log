@@ -284,3 +284,89 @@
 [2023-06-01T16:10:14.376] [INFO] default - Running in development mode http://localhost:5000
 [2023-06-01T16:11:22.507] [INFO] default - Running in development mode http://localhost:5000
 [2023-06-01T16:13:13.567] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T16:26:33.467] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T16:29:09.173] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T16:31:57.089] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T16:35:28.735] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:37:12.036] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:38:26.531] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:39:04.329] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:40:51.819] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:40:55.003] [ERROR] default - Error: WHERE parameter "id" has invalid "undefined" value
+    at UserDao.<anonymous> (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:71:13)
+    at Generator.throw (<anonymous>)
+    at rejected (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:6:65)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-06-01T17:40:55.577] [ERROR] default - Error: WHERE parameter "id" has invalid "undefined" value
+    at UserDao.<anonymous> (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:85:13)
+    at Generator.throw (<anonymous>)
+    at rejected (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:6:65)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-06-01T17:40:56.081] [ERROR] default - Error: WHERE parameter "id" has invalid "undefined" value
+    at UserDao.<anonymous> (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:85:13)
+    at Generator.throw (<anonymous>)
+    at rejected (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:6:65)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-06-01T17:40:57.281] [ERROR] default - Error: Illegal arguments: string, undefined
+    at _async (/home/franco/Documentos/PROYECTOS/medicalAppointments/node_modules/bcryptjs/dist/bcrypt.js:286:46)
+    at /home/franco/Documentos/PROYECTOS/medicalAppointments/node_modules/bcryptjs/dist/bcrypt.js:307:17
+    at new Promise (<anonymous>)
+    at bcrypt.compare (/home/franco/Documentos/PROYECTOS/medicalAppointments/node_modules/bcryptjs/dist/bcrypt.js:306:20)
+    at /home/franco/Documentos/PROYECTOS/medicalAppointments/src/utils/bcryptHandler.ts:10:23
+    at Generator.next (<anonymous>)
+    at /home/franco/Documentos/PROYECTOS/medicalAppointments/src/utils/bcryptHandler.ts:8:71
+    at new Promise (<anonymous>)
+    at Object.<anonymous>.__awaiter (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/utils/bcryptHandler.ts:4:12)
+    at verifyEncrypt (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/utils/bcryptHandler.ts:9:71)
+    at StaffService.<anonymous> (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/staff/staff.services.ts:135:42)
+    at Generator.next (<anonymous>)
+    at fulfilled (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/staff/staff.services.ts:5:58)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-06-01T17:40:57.483] [ERROR] default - Error: Illegal arguments: string, undefined
+    at _async (/home/franco/Documentos/PROYECTOS/medicalAppointments/node_modules/bcryptjs/dist/bcrypt.js:286:46)
+    at /home/franco/Documentos/PROYECTOS/medicalAppointments/node_modules/bcryptjs/dist/bcrypt.js:307:17
+    at new Promise (<anonymous>)
+    at bcrypt.compare (/home/franco/Documentos/PROYECTOS/medicalAppointments/node_modules/bcryptjs/dist/bcrypt.js:306:20)
+    at /home/franco/Documentos/PROYECTOS/medicalAppointments/src/utils/bcryptHandler.ts:10:23
+    at Generator.next (<anonymous>)
+    at /home/franco/Documentos/PROYECTOS/medicalAppointments/src/utils/bcryptHandler.ts:8:71
+    at new Promise (<anonymous>)
+    at Object.<anonymous>.__awaiter (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/utils/bcryptHandler.ts:4:12)
+    at verifyEncrypt (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/utils/bcryptHandler.ts:9:71)
+    at StaffService.<anonymous> (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/staff/staff.services.ts:135:42)
+    at Generator.next (<anonymous>)
+    at fulfilled (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/staff/staff.services.ts:5:58)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-06-01T17:42:34.051] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:42:37.282] [ERROR] default - Error: WHERE parameter "id" has invalid "undefined" value
+    at UserDao.<anonymous> (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:71:13)
+    at Generator.throw (<anonymous>)
+    at rejected (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:6:65)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-06-01T17:42:37.869] [ERROR] default - Error: WHERE parameter "id" has invalid "undefined" value
+    at UserDao.<anonymous> (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:85:13)
+    at Generator.throw (<anonymous>)
+    at rejected (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:6:65)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-06-01T17:42:38.380] [ERROR] default - Error: WHERE parameter "id" has invalid "undefined" value
+    at UserDao.<anonymous> (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:85:13)
+    at Generator.throw (<anonymous>)
+    at rejected (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:6:65)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-06-01T17:43:56.110] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:44:17.768] [ERROR] default - Error: WHERE parameter "id" has invalid "undefined" value
+    at UserDao.<anonymous> (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:71:13)
+    at Generator.throw (<anonymous>)
+    at rejected (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/user/user.dao.ts:6:65)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-06-01T17:45:22.329] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:47:10.574] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:47:35.753] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:50:03.729] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T17:53:50.327] [INFO] default - Running in development mode http://localhost:5000

@@ -30,15 +30,6 @@ export class UserDao {
     }
   }
 
-  /** --- FIND BY Id (staff) ---  **/
-  async findStaff(id: string) {
-    try {
-      return await User.findOne({ where: { id }, include: { model: Staff } });
-    } catch (e: any) {
-      throw new Error(e.message);
-    }
-  }
-
   /** --- FIND BY MAIL ---  **/
   async findByMail(mail: string) {
     try {
