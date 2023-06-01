@@ -17,6 +17,15 @@ export default class SpecialtyDao {
       throw new Error(e);
     }
   }
+
+  async findByID(id: string) {
+    try {
+      return await Specialty.findOne({ where: { id } });
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  }
+
   async delete(id: string) {
     try {
       return await Specialty.destroy({ where: { id } });

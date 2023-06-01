@@ -32,10 +32,6 @@ export interface staffOIF extends staffBodyIF, Model<staffBodyIF> {
  * INTERFACE USER STAFF OBJECT
  **/
 
-// export interface userStaffOIF extends userStaffBIF, Model<userStaffBIF> {
-//   staff: staffBodyIF;
-// }
-
 export interface userStaffOIF extends userOIF {
   staff: staffBodyIF;
 }

@@ -211,3 +211,76 @@
 [2023-05-30T17:34:08.605] [INFO] default - Running in development mode http://localhost:5000
 [2023-05-30T17:45:33.434] [INFO] default - Running in development mode http://localhost:5000
 [2023-05-30T17:46:12.344] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T13:16:26.140] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T13:18:17.959] [ERROR] default - Cannot read properties of undefined (reading 'dni')
+[2023-05-31T13:18:59.863] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T13:19:04.760] [ERROR] default - no existe la columna doctor.specialtyId
+[2023-05-31T13:21:15.644] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T13:24:37.220] [ERROR] default - no existe la columna doctor.userId
+[2023-05-31T13:27:30.292] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T15:28:10.271] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T15:40:48.653] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T15:42:05.957] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T15:44:26.752] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T15:46:03.070] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T15:57:29.720] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T15:59:35.487] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:01:11.270] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:02:30.550] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:02:59.268] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:18:30.556] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:22:46.655] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:23:53.934] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:24:02.371] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:32:54.774] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:33:17.234] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:33:49.580] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:34:44.002] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:35:08.620] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:35:51.178] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:45:08.981] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:45:33.293] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:45:34.848] [ERROR] default - Cannot read properties of null (reading 'mail')
+[2023-05-31T16:46:28.592] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:47:08.537] [ERROR] default - Cannot read properties of null (reading 'mail')
+[2023-05-31T16:48:08.837] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:48:10.755] [ERROR] default - Cannot read properties of null (reading 'mail')
+[2023-05-31T16:48:44.490] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:48:45.855] [INFO] default - { mail: 'junio@gmail.com' }
+[2023-05-31T16:48:45.881] [ERROR] default - Cannot read properties of null (reading 'mail')
+[2023-05-31T16:49:25.988] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:49:33.482] [ERROR] default - Cannot read properties of null (reading 'mail')
+[2023-05-31T16:50:28.237] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:51:01.436] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:52:06.483] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:52:52.592] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:54:59.357] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:55:47.682] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:59:09.975] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T16:59:58.898] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T17:06:05.435] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T17:07:56.111] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T17:09:47.381] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T17:10:55.753] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T17:23:59.217] [INFO] default - Running in development mode http://localhost:5000
+[2023-05-31T17:25:06.217] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T12:24:27.604] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T12:25:47.224] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T12:59:39.040] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T13:03:14.535] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T13:04:06.236] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T13:04:28.182] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T13:05:23.771] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T13:15:24.340] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T13:16:00.147] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T13:18:02.526] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T15:25:45.276] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T15:27:36.683] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T15:42:40.631] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T15:52:17.731] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T15:53:24.071] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T15:55:12.366] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T16:06:10.587] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T16:10:14.376] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T16:11:22.507] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-01T16:13:13.567] [INFO] default - Running in development mode http://localhost:5000

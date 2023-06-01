@@ -28,6 +28,6 @@ const Specialty = sequelize.define(
 ) as specialtyTypeModel;
 
 Specialty.hasMany(Doctor, { foreignKey: "id_specialty" });
-Doctor.belongsTo(Specialty);
+Doctor.belongsTo(Specialty, { foreignKey: "id_specialty" });
 
 export default Specialty;

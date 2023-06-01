@@ -33,6 +33,6 @@ const Doctor = sequelize.define(
 /**  JOIN  **/
 
 Doctor.hasMany(Schedule, { foreignKey: "id_doctor" });
-Schedule.belongsTo(Doctor);
+Schedule.belongsTo(Doctor, { foreignKey: "id_doctor" });
 
 export default Doctor;

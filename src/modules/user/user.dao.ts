@@ -5,6 +5,7 @@ import {
   userUpdateIF,
 } from "../../interfaces/user/user.interface";
 import Staff from "../staff/staff.model";
+import Doctor from "../doctor/models/doctor.model";
 
 export class UserDao {
   /**  CREATE USER  **/
@@ -20,7 +21,10 @@ export class UserDao {
   /** --- FIND BY ID ---  **/
   async findByID(id: string) {
     try {
-      return await User.findOne({ where: { id } });
+      return await User.findOne({
+        where: { id },
+        include: [{ model: Staff }, { model: Doctor }],
+      });
     } catch (e: any) {
       throw new Error(e.message);
     }
@@ -38,7 +42,10 @@ export class UserDao {
   /** --- FIND BY MAIL ---  **/
   async findByMail(mail: string) {
     try {
-      return await User.findOne({ where: { mail }, include: { model: Staff } });
+      return await User.findOne({
+        where: { mail },
+        include: [{ model: Staff }, { model: Doctor }],
+      });
     } catch (e: any) {
       throw new Error(e.message);
     }
@@ -47,7 +54,10 @@ export class UserDao {
   /** --- FIND BY DNI ---  **/
   async findByDNI(dni: string) {
     try {
-      return await User.findOne({ where: { dni }, include: { model: Staff } });
+      return await User.findOne({
+        where: { dni },
+        include: [{ model: Staff }, { model: Doctor }],
+      });
     } catch (e: any) {
       throw new Error(e.message);
     }

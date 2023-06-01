@@ -1,5 +1,6 @@
 import { Model } from "sequelize";
 import { staffBodyIF } from "../staff/staff.interface";
+import { doctorOIF } from "../doctor/doctor.interface";
 
 export interface userBIF {
   id?: string;
@@ -20,4 +21,5 @@ export interface userUpdateIF {
 
 export interface userOIF extends userBIF, Model<userBIF> {
   staff: staffBodyIF;
+  doctor: doctorOIF;
 }

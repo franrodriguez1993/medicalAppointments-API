@@ -2,7 +2,8 @@ import { Model } from "sequelize";
 
 export interface schedulesBIF {
   id?: string;
-  id_day: string;
+  id_day?: string; //id of the day in database
+  day?: string; //day name to search it in the database to get the id.
   id_doctor: string;
   hourIn: string;
   hourOut: string;

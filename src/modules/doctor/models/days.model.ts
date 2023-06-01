@@ -23,6 +23,6 @@ const Day = sequelize.define(
 ) as dayTypeModel;
 
 Day.hasMany(Schedule, { foreignKey: "id_day" });
-Schedule.belongsTo(Day);
+Schedule.belongsTo(Day, { foreignKey: "id_day" });
 
 export default Day;

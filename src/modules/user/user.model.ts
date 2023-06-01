@@ -63,6 +63,7 @@ User.hasOne(Doctor, {
   hooks: true,
 });
 Doctor.belongsTo(User, {
+  foreignKey: "id_user",
   targetKey: "id",
   hooks: true,
   onDelete: "CASCADE",
