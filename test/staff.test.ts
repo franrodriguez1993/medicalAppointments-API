@@ -2,7 +2,6 @@ import { server } from "../src";
 import {
   api,
   daoStaff,
-  daoUser,
   staffListMock,
   newStaffMock,
 } from "./helpers/staff_helpers";
@@ -10,8 +9,8 @@ import {
 import { staffOIF } from "../src/interfaces/staff/staff.interface";
 
 beforeEach(async () => {
+  await daoStaff.deleteUsers();
   await daoStaff.deleteAll();
-  await daoUser.deleteAll();
   await Promise.all(
     staffListMock.map(async (s) => {
       await api.post("/api/v1/staff/register").send(s);

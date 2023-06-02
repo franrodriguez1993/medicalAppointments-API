@@ -1,5 +1,4 @@
 import StaffDao from "./staff.dao";
-import { UserDao } from "../user/user.dao";
 import { userOIF, userUpdateIF } from "../../interfaces/user/user.interface";
 import {
   staffOIF,
@@ -7,9 +6,7 @@ import {
   userStaffOIF,
 } from "../../interfaces/staff/staff.interface";
 import { v4 as uuid, validate as uuidValidate } from "uuid";
-import { verifyEncrypt } from "../../utils/bcryptHandler";
 
-const daouser = new UserDao();
 const daoStaff = new StaffDao();
 
 export default class StaffService {
@@ -19,7 +16,7 @@ export default class StaffService {
     const id_user = uuid();
 
     //CHECK USER:
-    const user: userStaffOIF = await daouser.findByDNI(data.dni);
+    const user: userStaffOIF = await daoStaff.findUserByDNI(data.dni);
 
     //IF EXISTS:
     if (user) {
@@ -47,13 +44,13 @@ export default class StaffService {
       }
     }
     //IF NOT EXISTS:
-    const checkMail = await daouser.findByMail(data.mail);
+    const checkMail = await daoStaff.findUserByMail(data.mail);
     if (checkMail) return "MAIL_IN_USE";
 
     const checkUsername = await daoStaff.findByUsername(data.username);
     if (checkUsername) return "USERNAME_IN_USE";
 
-    const newUser: userOIF = await daouser.create({
+    const newUser: userOIF = await daoStaff.createUser({
       id: id_user,
       name: data.name,
       lastname: data.lastname,
@@ -95,7 +92,7 @@ export default class StaffService {
 
     if (!staff) return "STAFF_NOT_FOUND";
 
-    return await daouser.update(staff.user.id, data);
+    return await daoStaff.updateUser(staff.user.id, data);
   }
 
   /**  CHANGE MAIL **/
@@ -106,7 +103,7 @@ export default class StaffService {
 
     if (!staff) return "STAFF_NOT_FOUND";
 
-    return await daouser.changeMail(staff.user.id, mail);
+    return await daoStaff.changeMail(staff.user.id, mail);
   }
 
   /**  CHANGE USERNAME **/

@@ -1,13 +1,12 @@
 import supertest from "supertest";
 import StaffDao from "../../src/modules/staff/staff.dao";
-import { UserDao } from "../../src/modules/user/user.dao";
 import { v4 as uuid } from "uuid";
 import { app } from "../../src/index";
 
 export const api = supertest(app);
 
 export const daoStaff = new StaffDao();
-export const daoUser = new UserDao();
+
 export const staffListMock = [
   {
     id: `${uuid()}`,

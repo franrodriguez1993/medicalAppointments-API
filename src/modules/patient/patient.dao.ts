@@ -1,7 +1,11 @@
 import { patientBIF } from "../../interfaces/patient/patient.interface";
+import { UserDao } from "../user/user.dao";
 import Patient from "./patient.model";
 
-export default class PatientDao {
+export default class PatientDao extends UserDao {
+  constructor() {
+    super(Patient);
+  }
   /** CREATE **/
 
   async create(data: patientBIF) {

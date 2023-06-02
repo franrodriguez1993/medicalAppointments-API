@@ -8,10 +8,25 @@ import Staff from "../staff/staff.model";
 import Doctor from "../doctor/models/doctor.model";
 import Patient from "../patient/patient.model";
 
-export class UserDao {
-  /**  CREATE USER  **/
+import { BuildOptions, Model } from "sequelize";
+import { doctorOIF } from "../../interfaces/doctor/doctor.interface";
+import { staffOIF } from "../../interfaces/staff/staff.interface";
+import { patientOIF } from "../../interfaces/patient/patient.interface";
 
-  async create(data: userBIF) {
+type modelClass = typeof Model & {
+  new (values?: object, options?: BuildOptions):
+    | doctorOIF
+    | staffOIF
+    | patientOIF;
+};
+
+export class UserDao {
+  model: modelClass;
+  /**  CREATE USER  **/
+  constructor(m: modelClass) {
+    this.model = m;
+  }
+  async createUser(data: userBIF) {
     try {
       return await User.create(data);
     } catch (e: any) {
@@ -20,7 +35,7 @@ export class UserDao {
   }
 
   /** --- FIND BY ID ---  **/
-  async findByID(id: string) {
+  async findUserByID(id: string) {
     try {
       return await User.findOne({
         where: { id },
@@ -32,7 +47,7 @@ export class UserDao {
   }
 
   /** --- FIND BY MAIL ---  **/
-  async findByMail(mail: string) {
+  async findUserByMail(mail: string) {
     try {
       return await User.findOne({
         where: { mail },
@@ -44,7 +59,7 @@ export class UserDao {
   }
 
   /** --- FIND BY DNI ---  **/
-  async findByDNI(dni: string) {
+  async findUserByDNI(dni: string) {
     try {
       return await User.findOne({
         where: { dni },
@@ -56,7 +71,7 @@ export class UserDao {
   }
 
   /**  UPDATE USER  **/
-  async update(id: string, data: userUpdateIF) {
+  async updateUser(id: string, data: userUpdateIF) {
     try {
       return await User.update({ ...data }, { where: { id } });
     } catch (e: any) {
@@ -79,7 +94,7 @@ export class UserDao {
   }
 
   /**  DELETE USER  **/
-  async deleteOne(id: string) {
+  async deleteUser(id: string) {
     try {
       return await User.destroy({
         where: { id },
@@ -90,9 +105,30 @@ export class UserDao {
   }
 
   /** --- DELETE ALL ---  **/
-  async deleteAll() {
+  async deleteUsers() {
     try {
       return await User.destroy({ where: {} });
+    } catch (e: any) {
+      throw new Error(e.message);
+    }
+  }
+
+  /** DELETE ONE  **/
+  async deleteOne(id: string) {
+    try {
+      return await this.model.destroy({
+        where: { id },
+      });
+    } catch (e: any) {
+      throw new Error(e.message);
+    }
+  }
+
+  async deleteAll() {
+    try {
+      return await this.model.destroy({
+        where: {},
+      });
     } catch (e: any) {
       throw new Error(e.message);
     }

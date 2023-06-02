@@ -1,5 +1,5 @@
 import { server } from "../src";
-import { doctorOIF } from "../src/interfaces/doctor/doctor.interface";
+
 import { specialtiesOIF } from "../src/interfaces/doctor/specialties.interface";
 import {
   api,
@@ -7,12 +7,11 @@ import {
   daoSpecialty,
   daoDoctor,
   DoctorMock,
-  daoUser,
 } from "./helpers/doctor_helpers";
 import { v4 as uuid } from "uuid";
 
 beforeEach(async () => {
-  await daoUser.deleteAll();
+  await daoDoctor.deleteUsers();
   await daoSpecialty.deleteAll();
   await daoDoctor.deleteAll();
 

@@ -3,11 +3,10 @@ import supertest from "supertest";
 import SpecialtyDao from "../../src/modules/doctor/daos/specialty.dao";
 import { app } from "../../src/index";
 import DoctorDao from "../../src/modules/doctor/daos/doctor.dao";
-import { UserDao } from "../../src/modules/user/user.dao";
 
 export const daoDoctor = new DoctorDao();
 export const daoSpecialty = new SpecialtyDao();
-export const daoUser = new UserDao();
+
 export const api = supertest(app);
 
 export const SpecialtyMock = [

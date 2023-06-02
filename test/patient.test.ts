@@ -1,13 +1,8 @@
 import { server } from "../src";
-import {
-  api,
-  patientMock,
-  daoPatient,
-  daoUser,
-} from "./helpers/patient_helpers";
+import { api, patientMock, daoPatient } from "./helpers/patient_helpers";
 
 beforeEach(async () => {
-  await daoUser.deleteAll();
+  await daoPatient.deleteUsers();
 });
 
 afterAll(async () => {

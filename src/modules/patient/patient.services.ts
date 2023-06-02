@@ -1,5 +1,4 @@
 import PatientDao from "./patient.dao";
-import { UserDao } from "../user/user.dao";
 import {
   patientOIF,
   userPatientBIF,
@@ -8,7 +7,6 @@ import { userOIF } from "../../interfaces/user/user.interface";
 import { v4 as uuid } from "uuid";
 
 const daoPatient = new PatientDao();
-const daoUser = new UserDao();
 
 export default class PatientService {
   /**  CREATE  **/
@@ -16,7 +14,7 @@ export default class PatientService {
     const id = uuid();
     const id_user = uuid();
 
-    const user: userOIF = await daoUser.findByDNI(data.dni);
+    const user: userOIF = await daoPatient.findUserByDNI(data.dni);
     //IF USER EXISTS:
     if (user) {
       if (user.patient) {
@@ -37,10 +35,10 @@ export default class PatientService {
     }
 
     //IF USER DOESN'T EXISTS:
-    const checkMail = await daoUser.findByMail(data.mail);
+    const checkMail = await daoPatient.findUserByMail(data.mail);
     if (checkMail) return "MAIL_IN_USE";
 
-    const newUser: userOIF = await daoUser.create({
+    const newUser: userOIF = await daoPatient.createUser({
       id: id_user,
       name: data.name,
       lastname: data.lastname,

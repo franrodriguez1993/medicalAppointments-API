@@ -5,16 +5,17 @@ import { UserDao } from "../user/user.dao";
 import { generateToken } from "../../utils/jwtHandler";
 import User from "../user/user.model";
 
-const daoUser = new UserDao();
-
-export default class StaffDao {
+export default class StaffDao extends UserDao {
+  constructor() {
+    super(Staff);
+  }
   /**  REGISTER STAFF  **/
   async register(data: staffBodyIF) {
     try {
       const hashPass = await encrypt(data.password);
       return await Staff.create({ ...data, password: hashPass });
     } catch (e: any) {
-      daoUser.deleteOne(data.id_user).then((res) => {
+      this.deleteUser(data.id_user).then((res) => {
         throw new Error(e.message);
       });
     }
@@ -103,15 +104,6 @@ export default class StaffDao {
   async updateStatus(id: string, status: string) {
     try {
       return await Staff.update({ status }, { where: { id } });
-    } catch (e: any) {
-      throw new Error(e.message);
-    }
-  }
-
-  /** DELETE ALL **/
-  async deleteAll() {
-    try {
-      return await Staff.destroy({ where: {} });
     } catch (e: any) {
       throw new Error(e.message);
     }

@@ -4,7 +4,6 @@ import {
   userDoctorBIF,
 } from "../../../interfaces/doctor/doctor.interface";
 import DoctorDao from "../daos/doctor.dao";
-import { UserDao } from "../../user/user.dao";
 import { userOIF, userUpdateIF } from "../../../interfaces/user/user.interface";
 import { specialtiesOIF } from "../../../interfaces/doctor/specialties.interface";
 import SpecialtyDao from "../daos/specialty.dao";
@@ -13,7 +12,7 @@ import DayDao from "../daos/day.dao";
 import { dayOIF } from "../../../interfaces/doctor/day.interface";
 
 const daoDoctor = new DoctorDao();
-const daoUser = new UserDao();
+
 const daoSpecialty = new SpecialtyDao();
 const daoDay = new DayDao();
 
@@ -23,7 +22,7 @@ export default class DoctorService {
     const id = uuid();
     const id_user = uuid();
     //CHECK USER FOR USER:
-    const user: userOIF = await daoUser.findByDNI(data.dni);
+    const user: userOIF = await daoDoctor.findUserByDNI(data.dni);
 
     //check for specialty:
     if (!isValidUuid(data.id_specialty)) return "INVALID_ID";
@@ -52,7 +51,7 @@ export default class DoctorService {
     }
 
     //IF USER DOESN'T EXISTS:
-    const newUser: userOIF = await daoUser.create({
+    const newUser: userOIF = await daoDoctor.createUser({
       id: id_user,
       name: data.name,
       lastname: data.lastname,
@@ -88,7 +87,7 @@ export default class DoctorService {
     const doctor: doctorOIF = await daoDoctor.findByID(id);
 
     if (!doctor) return "DOCTOR_NOT_FOUND";
-    return await daoUser.update(id, data);
+    return await daoDoctor.updateUser(id, data);
   }
 
   /**  UPDATE MAIL **/
@@ -98,7 +97,7 @@ export default class DoctorService {
     const doctor: doctorOIF = await daoDoctor.findByID(id);
     if (!doctor) return "DOCTOR_NOT_FOUND";
 
-    return await daoUser.changeMail(doctor.user.id, mail);
+    return await daoDoctor.changeMail(doctor.user.id, mail);
   }
 
   /**  UPDATE SPECIALTY **/

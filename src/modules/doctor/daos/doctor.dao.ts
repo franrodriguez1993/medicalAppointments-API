@@ -3,13 +3,17 @@ import {
   schedulesBIF,
   schedulesOIF,
 } from "../../../interfaces/doctor/schedules.interface";
+import { UserDao } from "../../user/user.dao";
 import User from "../../user/user.model";
 import Day from "../models/days.model";
 import Doctor from "../models/doctor.model";
 import Schedule from "../models/schedules.model";
 import Specialty from "../models/specialties.model";
 
-export default class DoctorDao {
+export default class DoctorDao extends UserDao {
+  constructor() {
+    super(Doctor);
+  }
   /** CREATE DOCTOR  **/
   async create(data: doctorBIF) {
     try {
@@ -98,15 +102,6 @@ export default class DoctorDao {
       if (!schedule) return "SCHEDULE_NOT_FOUND";
 
       return await Schedule.destroy({ where: { id: schedule.id } });
-    } catch (e: any) {
-      throw new Error(e.message);
-    }
-  }
-
-  /** DELETE ALL  **/
-  async deleteAll() {
-    try {
-      return await Doctor.destroy({ where: {} });
     } catch (e: any) {
       throw new Error(e.message);
     }

@@ -3,12 +3,10 @@ import supertest from "supertest";
 import { app } from "../../src/index";
 
 import PatientDao from "../../src/modules/patient/patient.dao";
-import { UserDao } from "../../src/modules/user/user.dao";
 
 export const api = supertest(app);
 
 export const daoPatient = new PatientDao();
-export const daoUser = new UserDao();
 
 export const patientMock = [
   {
