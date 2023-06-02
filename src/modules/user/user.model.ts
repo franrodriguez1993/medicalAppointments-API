@@ -3,6 +3,7 @@ import { DataTypes, Model, BuildOptions } from "sequelize";
 import { userOIF } from "../../interfaces/user/user.interface";
 import Staff from "../staff/staff.model";
 import Doctor from "../doctor/models/doctor.model";
+import Patient from "../patient/patient.model";
 
 type userTypeModel = typeof Model & {
   new (values?: object, options?: BuildOptions): userOIF;
@@ -67,6 +68,17 @@ Doctor.belongsTo(User, {
   foreignKey: "id_user",
   targetKey: "id",
   hooks: true,
+  onDelete: "CASCADE",
+});
+
+User.hasOne(Patient, {
+  foreignKey: "id_user",
+  onDelete: "CASCADE",
+  hooks: true,
+});
+Patient.belongsTo(User, {
+  foreignKey: "id_user",
+  targetKey: "id",
   onDelete: "CASCADE",
 });
 

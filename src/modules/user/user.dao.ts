@@ -6,6 +6,7 @@ import {
 } from "../../interfaces/user/user.interface";
 import Staff from "../staff/staff.model";
 import Doctor from "../doctor/models/doctor.model";
+import Patient from "../patient/patient.model";
 
 export class UserDao {
   /**  CREATE USER  **/
@@ -23,7 +24,7 @@ export class UserDao {
     try {
       return await User.findOne({
         where: { id },
-        include: [{ model: Staff }, { model: Doctor }],
+        include: [{ model: Staff }, { model: Doctor }, { model: Patient }],
       });
     } catch (e: any) {
       throw new Error(e.message);
@@ -35,7 +36,7 @@ export class UserDao {
     try {
       return await User.findOne({
         where: { mail },
-        include: [{ model: Staff }, { model: Doctor }],
+        include: [{ model: Staff }, { model: Doctor }, { model: Patient }],
       });
     } catch (e: any) {
       throw new Error(e.message);
@@ -47,7 +48,7 @@ export class UserDao {
     try {
       return await User.findOne({
         where: { dni },
-        include: [{ model: Staff }, { model: Doctor }],
+        include: [{ model: Staff }, { model: Doctor }, { model: Patient }],
       });
     } catch (e: any) {
       throw new Error(e.message);
