@@ -13,3 +13,18 @@ export const patientValidator = [
   body("social_number").trim().isString().isLength({ min: 10, max: 25 }),
   validatorManager,
 ];
+
+/**  PATIENT UPDATE  **/
+export const personalDataValidator = [
+  body("name").trim().isLength({ min: 3, max: 50 }).escape(),
+  body("lastname").trim().isLength({ min: 3, max: 50 }).escape(),
+  body("birthday").trim().isLength({ min: 6, max: 15 }),
+  body("cellphone").trim().isLength({ min: 6, max: 20 }),
+  validatorManager,
+];
+
+/**  CHECK SOCIALNUMBER  **/
+export const SNValidator = [
+  body("social_number").trim().isString().isLength({ min: 10, max: 25 }),
+  validatorManager,
+];
