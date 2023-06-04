@@ -1,6 +1,7 @@
 import { Model } from "sequelize";
 import { userBIF, userOIF } from "../user/user.interface";
 import { specialtiesOIF } from "./specialties.interface";
+import { schedulesBIF } from "./schedules.interface";
 
 /**
  *  INTERFACE ONLY DOCTOR PROPERTIES - BODY
@@ -17,6 +18,7 @@ export interface doctorBIF {
 export interface doctorOIF extends doctorBIF, Model<doctorBIF> {
   user?: userOIF;
   specialty: specialtiesOIF;
+  schedules: Array<schedulesBIF>;
 }
 
 /**

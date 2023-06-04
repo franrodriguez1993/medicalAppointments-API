@@ -412,3 +412,25 @@
 [2023-06-03T09:05:50.351] [INFO] default - Running in development mode http://localhost:5000
 [2023-06-03T09:06:39.902] [INFO] default - Running in development mode http://localhost:5000
 [2023-06-03T09:07:48.779] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T12:42:47.095] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T15:47:41.820] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T15:57:32.163] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T16:05:01.253] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T16:35:01.093] [ERROR] default - Error: no existe la relación «appointments»
+    at AppointmentDao.<anonymous> (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/appointment/appointment.dao.ts:31:13)
+    at Generator.throw (<anonymous>)
+    at rejected (/home/franco/Documentos/PROYECTOS/medicalAppointments/src/modules/appointment/appointment.dao.ts:6:65)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[2023-06-03T16:35:01.653] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T16:35:38.029] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T16:38:34.655] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T16:39:27.205] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T16:41:54.430] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T16:44:54.214] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T16:46:05.787] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-03T16:46:37.180] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-04T08:54:41.016] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-04T09:01:28.301] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-04T09:02:04.983] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-04T09:02:28.367] [INFO] default - Running in development mode http://localhost:5000
+[2023-06-04T09:21:59.898] [INFO] default - Running in development mode http://localhost:5000

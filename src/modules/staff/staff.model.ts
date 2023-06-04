@@ -1,6 +1,7 @@
 import { staffOIF } from "../../interfaces/staff/staff.interface";
 import { sequelize } from "../../config/postgresql";
 import { DataTypes, Model, BuildOptions } from "sequelize";
+import Appointment from "../appointment/appointment.model";
 
 type staffTypeModel = typeof Model & {
   new (values?: object, options?: BuildOptions): staffOIF;
@@ -43,5 +44,8 @@ const Staff = sequelize.define(
     timestamps: true,
   }
 ) as staffTypeModel;
+
+Staff.hasMany(Appointment, { foreignKey: "id_staff" });
+Appointment.belongsTo(Staff, { foreignKey: "id_staff" });
 
 export default Staff;

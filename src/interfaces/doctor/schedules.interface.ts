@@ -1,4 +1,5 @@
 import { Model } from "sequelize";
+import { dayOIF } from "./day.interface";
 
 export interface schedulesBIF {
   id?: string;

@@ -41,7 +41,7 @@ export default class DoctorDao extends UserDao {
           {
             model: Schedule,
             attributes: {
-              exclude: ["createdAt", "updatedAt", "id_day", "id_doctor"],
+              exclude: ["createdAt", "updatedAt", "id_doctor"],
             },
             include: [{ model: Day, attributes: { exclude: ["id"] } }],
           },
