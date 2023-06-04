@@ -4,6 +4,7 @@ import { encrypt, verifyEncrypt } from "../../utils/bcryptHandler";
 import { UserDao } from "../user/user.dao";
 import { generateToken } from "../../utils/jwtHandler";
 import User from "../user/user.model";
+import { paginatedData, pagination } from "../../utils/pagination";
 
 export default class StaffDao extends UserDao {
   constructor() {
@@ -47,6 +48,27 @@ export default class StaffDao extends UserDao {
           attributes: { exclude: ["createdAt", "updatedAt"] },
         },
       });
+    } catch (e: any) {
+      throw new Error(e.message);
+    }
+  }
+
+  /**  LIST STAFFS  **/
+  async listStaff(page: number, size: number) {
+    try {
+      const { limit, offset } = pagination(page, size);
+
+      const data = await Staff.findAndCountAll({
+        limit,
+        offset,
+        attributes: { exclude: ["id_user", "password"] },
+        include: {
+          model: User,
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+        },
+      });
+
+      return paginatedData(data, page, limit);
     } catch (e: any) {
       throw new Error(e.message);
     }

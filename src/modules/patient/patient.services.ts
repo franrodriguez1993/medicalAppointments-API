@@ -62,6 +62,11 @@ export default class PatientService {
     return newPatient.id;
   }
 
+  /**  LIST PATIENTS  **/
+  async list(page: number, size: number) {
+    return await daoPatient.list(page, size);
+  }
+
   /**  FIND PATIENT  **/
   async findByDNI(dni: string) {
     const parsedDNI = parseInt(dni).toString();

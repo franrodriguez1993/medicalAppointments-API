@@ -3,6 +3,8 @@ import { UserDao } from "../user/user.dao";
 import User from "../user/user.model";
 import Patient from "./patient.model";
 
+import { pagination, paginatedData } from "../../utils/pagination";
+
 export default class PatientDao extends UserDao {
   constructor() {
     super(Patient);
@@ -11,6 +13,27 @@ export default class PatientDao extends UserDao {
   async create(data: patientBIF) {
     try {
       return await Patient.create(data);
+    } catch (e: any) {
+      throw new Error(e.message);
+    }
+  }
+
+  /**  LIST PATIENTS  **/
+  async list(page: number = 0, size: number = 0) {
+    try {
+      const { limit, offset } = pagination(page, size);
+
+      const data = await Patient.findAndCountAll({
+        limit,
+        offset,
+        attributes: { exclude: ["id_user"] },
+        include: {
+          model: User,
+          attributes: { exclude: ["createdAt", "updatedAt"] },
+        },
+      });
+
+      return paginatedData(data, page, limit);
     } catch (e: any) {
       throw new Error(e.message);
     }

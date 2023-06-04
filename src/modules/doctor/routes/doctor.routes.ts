@@ -11,6 +11,7 @@ const doctorRouter = Router();
 const controller = new DoctorController();
 
 doctorRouter.post("/", doctorBodyValidator, controller.create);
+doctorRouter.get("/", controller.list);
 doctorRouter.get("/:id", controller.findByID);
 doctorRouter.put("/:id/data", doctorBodyUpdateValidator, controller.updateData);
 doctorRouter.put("/:id/mail", mailValidator, controller.updateMail);

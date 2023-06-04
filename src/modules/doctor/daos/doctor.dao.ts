@@ -9,6 +9,8 @@ import Day from "../models/days.model";
 import Doctor from "../models/doctor.model";
 import Schedule from "../models/schedules.model";
 import Specialty from "../models/specialties.model";
+//Pagination:
+import { pagination, paginatedData } from "../../../utils/pagination";
 
 export default class DoctorDao extends UserDao {
   constructor() {
@@ -18,6 +20,27 @@ export default class DoctorDao extends UserDao {
   async create(data: doctorBIF) {
     try {
       return await Doctor.create(data);
+    } catch (e: any) {
+      throw new Error(e.message);
+    }
+  }
+
+  /**  LIST DOCTORS  **/
+  async list(page: number = 0, size: number = 0) {
+    try {
+      const { limit, offset } = pagination(page, size);
+
+      const data = await Doctor.findAndCountAll({
+        limit,
+        offset,
+        attributes: { exclude: ["id_specialty", "id_user"] },
+        include: [
+          { model: User, attributes: { exclude: ["createdAt", "updatedAt"] } },
+          { model: Specialty },
+        ],
+      });
+
+      return paginatedData(data, page, limit);
     } catch (e: any) {
       throw new Error(e.message);
     }

@@ -24,6 +24,7 @@ staffRouter.put(
   UpdatePDStaffBody,
   controller.updatePersonalData
 );
+staffRouter.get("/", controller.list);
 staffRouter.put("/:id/mail", mailValidator, controller.changeMail);
 staffRouter.put("/:id/username", usernameValidator, controller.changeUsername);
 staffRouter.put("/:id/password", passwordValidator, controller.changePassword);

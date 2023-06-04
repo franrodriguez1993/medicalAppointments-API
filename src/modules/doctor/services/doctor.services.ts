@@ -73,6 +73,11 @@ export default class DoctorService {
     return newDoctor.id;
   }
 
+  /**  LIST DOCTORS **/
+  async list(page: number, size: number) {
+    return await daoDoctor.list(page, size);
+  }
+
   /**  FIND BY ID **/
   async findByID(id: string) {
     if (!isValidUuid(id)) return "INVALID_ID";

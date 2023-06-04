@@ -54,6 +54,21 @@ export default class StaffController {
     }
   }
 
+  /** LIST **/
+  async list(req: Request, res: Response) {
+    try {
+      const page: number = parseInt(req.query.page as string);
+      const size: number = parseInt(req.query.page as string);
+
+      const resService = await service.list(page, size);
+
+      return res.status(200).json({ status: 200, msg: "OK", data: resService });
+    } catch (e: any) {
+      logger.error(e);
+      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+    }
+  }
+
   /**  UPDATE PERSONAL DATA  **/
 
   async updatePersonalData(req: Request, res: Response) {

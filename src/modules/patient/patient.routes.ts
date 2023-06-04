@@ -11,6 +11,7 @@ const controller = new PatientController();
 const routerPatient = Router();
 
 routerPatient.post("/", patientValidator, controller.create);
+routerPatient.get("/", controller.list);
 routerPatient.get("/:dni", controller.findByDNI);
 routerPatient.put("/:id/personal", personalDataValidator, controller.updatePD);
 routerPatient.put("/:id/socialnumber", SNValidator, controller.updateSN);

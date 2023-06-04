@@ -34,6 +34,21 @@ export default class PatientController {
     }
   }
 
+  /**  LIST PATIENTS  **/
+  async list(req: Request, res: Response) {
+    try {
+      const page: number = parseInt(req.query.page as string);
+      const size: number = parseInt(req.query.page as string);
+
+      const resService = await service.list(page, size);
+
+      return res.status(200).json({ status: 200, msg: "OK", data: resService });
+    } catch (e: any) {
+      logger.error(e);
+      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+    }
+  }
+
   /**  FIND BY DNI**/
   async findByDNI(req: Request, res: Response) {
     try {

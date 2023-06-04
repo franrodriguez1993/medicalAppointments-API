@@ -84,6 +84,11 @@ export default class StaffService {
     return await daoStaff.login(username, password);
   }
 
+  /**  LIST STAFF  **/
+  async list(page: number, size: number) {
+    return await daoStaff.listStaff(page, size);
+  }
+
   /**  UPDATE PERSONAL DATA STAFF **/
   async updatePersonalData(id: string, data: userUpdateIF) {
     if (!uuidValidate(id)) return "INVALID_ID";
