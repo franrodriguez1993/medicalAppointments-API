@@ -16,4 +16,5 @@ app.use("/api/v1/specialty", SpecialtyRouter);
 app.use("/api/v1/doctor", doctorRouter);
 app.use("/api/v1/patient", routerPatient);
 app.use("/api/v1/appointment", routerAppointment);
+
 export default app;
