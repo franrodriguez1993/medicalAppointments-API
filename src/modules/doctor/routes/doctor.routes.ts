@@ -6,17 +6,42 @@ import {
   scheduleValidator,
 } from "../../../middlewares/bodyDoctorValidator";
 import { mailValidator } from "../../../middlewares/bodyStaffValidator";
+import { requireToken } from "../../../middlewares/requireToken";
 
 const doctorRouter = Router();
 const controller = new DoctorController();
 
-doctorRouter.post("/", doctorBodyValidator, controller.create);
-doctorRouter.get("/", controller.list);
-doctorRouter.get("/:id", controller.findByID);
-doctorRouter.put("/:id/data", doctorBodyUpdateValidator, controller.updateData);
-doctorRouter.put("/:id/mail", mailValidator, controller.updateMail);
-doctorRouter.put("/:id/specialty", controller.updateSpecialty);
-doctorRouter.post("/:id/schedule", scheduleValidator, controller.addSchedule);
-doctorRouter.put("/:id/schedule", scheduleValidator, controller.updateSchedule);
-doctorRouter.delete("/:id/schedule/:day", controller.deleteSchedule);
+doctorRouter.post("/", requireToken, doctorBodyValidator, controller.create);
+doctorRouter.get("/", requireToken, controller.list);
+doctorRouter.get("/:id", requireToken, controller.findByID);
+doctorRouter.put(
+  "/:id/data",
+  requireToken,
+  doctorBodyUpdateValidator,
+  controller.updateData
+);
+doctorRouter.put(
+  "/:id/mail",
+  requireToken,
+  mailValidator,
+  controller.updateMail
+);
+doctorRouter.put("/:id/specialty", requireToken, controller.updateSpecialty);
+doctorRouter.post(
+  "/:id/schedule",
+  requireToken,
+  scheduleValidator,
+  controller.addSchedule
+);
+doctorRouter.put(
+  "/:id/schedule",
+  requireToken,
+  scheduleValidator,
+  controller.updateSchedule
+);
+doctorRouter.delete(
+  "/:id/schedule/:day",
+  requireToken,
+  controller.deleteSchedule
+);
 export default doctorRouter;
