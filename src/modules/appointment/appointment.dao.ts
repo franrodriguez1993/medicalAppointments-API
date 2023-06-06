@@ -12,6 +12,7 @@ export default class AppointmentDao {
     try {
       const appointment: appointmentOIF = await Appointment.findOne({
         where: {
+          date: data.date,
           id_doctor: data.id_doctor,
           id_patient: data.id_patient,
           id_day: data.id_day,

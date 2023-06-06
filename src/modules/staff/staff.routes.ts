@@ -12,6 +12,7 @@ import {
   salaryValidator,
   statusValidator,
 } from "../../middlewares/bodyStaffValidator";
+import { requireToken } from "../../middlewares/requireToken";
 
 const controller = new StaffController();
 
@@ -24,13 +25,33 @@ staffRouter.put(
   UpdatePDStaffBody,
   controller.updatePersonalData
 );
-staffRouter.get("/", controller.list);
+staffRouter.get("/", requireToken, controller.list);
 staffRouter.put("/:id/mail", mailValidator, controller.changeMail);
-staffRouter.put("/:id/username", usernameValidator, controller.changeUsername);
-staffRouter.put("/:id/password", passwordValidator, controller.changePassword);
-staffRouter.put("/:id/salary", salaryValidator, controller.updateSalary);
-staffRouter.put("/:id/status", statusValidator, controller.updateStatus);
+staffRouter.put(
+  "/:id/username",
+  requireToken,
+  usernameValidator,
+  controller.changeUsername
+);
+staffRouter.put(
+  "/:id/password",
+  requireToken,
+  passwordValidator,
+  controller.changePassword
+);
+staffRouter.put(
+  "/:id/salary",
+  requireToken,
+  salaryValidator,
+  controller.updateSalary
+);
+staffRouter.put(
+  "/:id/status",
+  requireToken,
+  statusValidator,
+  controller.updateStatus
+);
 
-staffRouter.get("/:id", controller.findByID);
+staffRouter.get("/:id", requireToken, controller.findByID);
 
 export default staffRouter;

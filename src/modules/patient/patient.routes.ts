@@ -25,7 +25,7 @@ routerPatient.put(
   requireToken,
   SNValidator,
   controller.updateSN
-);
+); 
 routerPatient.put(
   "/:id/mail",
   requireToken,
