@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:user": "MODE=T --verbose --silent --detectOpenHandles ./test/user.test.ts",
     "test:staff": "MODE=T jest --verbose --silent --detectOpenHandles ./test/staff.test.ts",
     "test:doctor": "MODE=T jest --verbose --silent --detectOpenHandles ./test/doctor.test.ts",
     "test:patient": "MODE=T jest --verbose --silent --detectOpenHandles ./test/patient.test.ts",
