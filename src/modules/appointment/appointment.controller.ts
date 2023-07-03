@@ -32,7 +32,7 @@ export default class AppointmentController {
           msg: "APPOINTMENT_CREATED",
           data: resService.id,
         });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -52,7 +52,7 @@ export default class AppointmentController {
         return res.status(404).json({ status: 404, msg: resService });
 
       return res.status(200).json({ status: 200, msg: "OK", data: resService });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -71,7 +71,7 @@ export default class AppointmentController {
         return res
           .status(200)
           .json({ status: 200, msg: "APPOINTMENT_DELETED" });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }

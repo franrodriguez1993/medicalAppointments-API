@@ -48,7 +48,7 @@ export default class StaffController {
       return res
         .status(200)
         .json({ status: 200, msg: "LOGIN_SUCCESSFULLY", data: resService });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -63,7 +63,7 @@ export default class StaffController {
       const resService = await service.list(page, size);
 
       return res.status(200).json({ status: 200, msg: "OK", data: resService });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -84,7 +84,7 @@ export default class StaffController {
         return res.status(400).json({ status: 400, msg: resService });
 
       return res.status(201).json({ status: 201, msg: "STAFF_UPDATED" });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -108,7 +108,7 @@ export default class StaffController {
         return res.status(404).json({ status: 404, msg: resService });
 
       return res.status(201).json({ status: 201, msg: "MAIL_UPDATED" });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -132,7 +132,7 @@ export default class StaffController {
         return res.status(404).json({ status: 404, msg: resService });
       else
         return res.status(201).json({ status: 201, msg: "USERNAME_UPDATED" });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -152,7 +152,7 @@ export default class StaffController {
         return res.status(404).json({ status: 404, msg: resService });
       else
         return res.status(201).json({ status: 201, msg: "PASSWORD_UPDATED" });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -171,7 +171,7 @@ export default class StaffController {
         return res.status(404).json({ status: 404, msg: resService });
 
       return res.status(200).json({ status: 200, msg: "OK", data: resService });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -191,7 +191,7 @@ export default class StaffController {
         return res.status(404).json({ status: 404, msg: resService });
 
       return res.status(201).json({ status: 201, msg: "SALARY_UPDATED" });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -211,7 +211,7 @@ export default class StaffController {
         return res.status(404).json({ status: 404, msg: resService });
 
       return res.status(201).json({ status: 201, msg: "STATUS_UPDATED" });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }

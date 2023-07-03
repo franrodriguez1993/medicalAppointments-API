@@ -42,7 +42,7 @@ export default class DoctorController {
       const resService = await service.list(page, size);
 
       return res.status(200).json({ status: 200, msg: "OK", data: resService });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -63,8 +63,8 @@ export default class DoctorController {
         return res
           .status(200)
           .json({ status: 200, msg: "OK", data: resService });
-    } catch (e: any) {
-      logger.error(e.message);
+    } catch (e: unknown) {
+      logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
@@ -83,8 +83,8 @@ export default class DoctorController {
         return res.status(400).json({ status: 400, msg: resService });
 
       return res.status(201).json({ status: 201, msg: "DOCTOR_UPDATED" });
-    } catch (e: any) {
-      logger.error(e.message);
+    } catch (e: unknown) {
+      logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
@@ -107,8 +107,8 @@ export default class DoctorController {
         return res.status(400).json({ status: 400, msg: resService });
 
       return res.status(201).json({ status: 201, msg: "DOCTOR_UPDATED" });
-    } catch (e: any) {
-      logger.error(e.message);
+    } catch (e: unknown) {
+      logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
@@ -129,8 +129,8 @@ export default class DoctorController {
       )
         return res.status(404).json({ status: 404, msg: resService });
       else return res.status(201).json({ status: 201, msg: "DOCTOR_UPDATED" });
-    } catch (e: any) {
-      logger.error(e.message);
+    } catch (e: unknown) {
+      logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
@@ -154,8 +154,8 @@ export default class DoctorController {
       )
         return res.status(404).json({ status: 404, msg: resService });
       else return res.status(201).json({ status: 201, msg: "SCHEDULE_ADDED" });
-    } catch (e: any) {
-      logger.error(e.message);
+    } catch (e: unknown) {
+      logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
@@ -181,8 +181,8 @@ export default class DoctorController {
         return res.status(404).json({ status: 404, msg: resService });
       else
         return res.status(201).json({ status: 201, msg: "SCHEDULE_UPDATED" });
-    } catch (e: any) {
-      logger.error(e.message);
+    } catch (e: unknown) {
+      logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
@@ -204,8 +204,8 @@ export default class DoctorController {
         return res.status(404).json({ status: 404, msg: resService });
       else
         return res.status(201).json({ status: 200, msg: "SCHEDULE_DELETED" });
-    } catch (e: any) {
-      logger.error(e.message);
+    } catch (e: unknown) {
+      logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }

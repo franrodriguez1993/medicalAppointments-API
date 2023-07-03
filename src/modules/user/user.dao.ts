@@ -29,8 +29,10 @@ export class UserDao {
   async createUser(data: userBIF) {
     try {
       return await User.create(data);
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -41,8 +43,10 @@ export class UserDao {
         where: { id },
         include: [{ model: Staff }, { model: Doctor }, { model: Patient }],
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -53,8 +57,10 @@ export class UserDao {
         where: { mail },
         include: [{ model: Staff }, { model: Doctor }, { model: Patient }],
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -65,8 +71,10 @@ export class UserDao {
         where: { dni },
         include: [{ model: Staff }, { model: Doctor }, { model: Patient }],
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -74,8 +82,10 @@ export class UserDao {
   async updateUser(id: string, data: userUpdateIF) {
     try {
       return await User.update({ ...data }, { where: { id } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -88,8 +98,10 @@ export class UserDao {
       if (checkMail) return "MAIL_IN_USE";
 
       return await User.update({ mail }, { where: { id } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -99,8 +111,10 @@ export class UserDao {
       return await User.destroy({
         where: { id },
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -108,8 +122,10 @@ export class UserDao {
   async deleteUsers() {
     try {
       return await User.destroy({ where: {} });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -119,8 +135,10 @@ export class UserDao {
       return await this.model.destroy({
         where: { id },
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -129,8 +147,10 @@ export class UserDao {
       return await this.model.destroy({
         where: {},
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 }

@@ -28,9 +28,9 @@ export default class PatientController {
         return res
           .status(201)
           .json({ status: 201, msg: "PATIENT_CREATED", data: resService });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
-      return res.status(500).json({ status: 500, msg: e.message });
+      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
 
@@ -43,7 +43,7 @@ export default class PatientController {
       const resService = await service.list(page, size);
 
       return res.status(200).json({ status: 200, msg: "OK", data: resService });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
       return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
@@ -64,9 +64,9 @@ export default class PatientController {
         return res
           .status(200)
           .json({ status: 200, msg: "OK", data: resService });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
-      return res.status(500).json({ status: 500, msg: e.message });
+      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
 
@@ -84,9 +84,9 @@ export default class PatientController {
       else if (resService === "PATIENT_NOT_FOUND")
         return res.status(404).json({ status: 404, msg: resService });
       else return res.status(201).json({ status: 201, msg: "PATIENT_UPDATED" });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
-      return res.status(500).json({ status: 500, msg: e.message });
+      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
 
@@ -104,9 +104,9 @@ export default class PatientController {
         return res.status(404).json({ status: 404, msg: resService });
 
       return res.status(201).json({ status: 201, msg: "PATIENT_UPDATED" });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
-      return res.status(500).json({ status: 500, msg: e.message });
+      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
 
@@ -127,9 +127,9 @@ export default class PatientController {
       else if (resService === "PATIENT_NOT_FOUND")
         return res.status(404).json({ status: 404, msg: resService });
       else return res.status(201).json({ status: 201, msg: "PATIENT_UPDATED" });
-    } catch (e: any) {
+    } catch (e: unknown) {
       logger.error(e);
-      return res.status(500).json({ status: 500, msg: e.message });
+      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
     }
   }
 }

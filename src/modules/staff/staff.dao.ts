@@ -15,9 +15,11 @@ export default class StaffDao extends UserDao {
     try {
       const hashPass = await encrypt(data.password);
       return await Staff.create({ ...data, password: hashPass });
-    } catch (e: any) {
+    } catch (e: unknown) {
       this.deleteUser(data.id_user).then((res) => {
-        throw new Error(e.message);
+        if (e instanceof Error) {
+          throw new Error(e.message);
+        } else throw new Error(e.toString());
       });
     }
   }
@@ -32,8 +34,10 @@ export default class StaffDao extends UserDao {
 
       const jwt = generateToken(user.id);
       return { uid: user.id, jwt };
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -48,8 +52,10 @@ export default class StaffDao extends UserDao {
           attributes: { exclude: ["createdAt", "updatedAt"] },
         },
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -69,8 +75,10 @@ export default class StaffDao extends UserDao {
       });
 
       return paginatedData(data, page, limit);
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -85,8 +93,10 @@ export default class StaffDao extends UserDao {
           attributes: { exclude: ["createdAt", "updatedAt"] },
         },
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -94,8 +104,10 @@ export default class StaffDao extends UserDao {
   async changeUsername(id: string, username: string) {
     try {
       return await Staff.update({ username }, { where: { id } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -108,8 +120,10 @@ export default class StaffDao extends UserDao {
 
       const hashPass = await encrypt(password);
       return await Staff.update({ password: hashPass }, { where: { id } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -117,8 +131,10 @@ export default class StaffDao extends UserDao {
   async updateSalary(id: string, salary: number) {
     try {
       return await Staff.update({ salary }, { where: { id } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -126,8 +142,10 @@ export default class StaffDao extends UserDao {
   async updateStatus(id: string, status: string) {
     try {
       return await Staff.update({ status }, { where: { id } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 }

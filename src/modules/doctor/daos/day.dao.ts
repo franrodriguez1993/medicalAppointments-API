@@ -4,8 +4,10 @@ export default class DayDao {
   async create(id: string, name: string) {
     try {
       return await Day.create({ id, name });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -13,8 +15,10 @@ export default class DayDao {
   async findByID(id: string) {
     try {
       return await Day.findOne({ where: { id } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -22,8 +26,10 @@ export default class DayDao {
   async findByName(name: string) {
     try {
       return await Day.findOne({ where: { name } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 }

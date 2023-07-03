@@ -21,8 +21,10 @@ export default class AppointmentDao {
       if (appointment) return "APPOINTMENT_ALREADY_EXISTS";
 
       return await Appointment.create(data);
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -43,8 +45,10 @@ export default class AppointmentDao {
         },
         attributes: { exclude: ["id_patient", "createdAt", "updatedAt"] },
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -52,8 +56,10 @@ export default class AppointmentDao {
   async deleteOne(id: string) {
     try {
       return await Appointment.destroy({ where: { id } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 }

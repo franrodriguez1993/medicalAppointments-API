@@ -20,8 +20,10 @@ export default class DoctorDao extends UserDao {
   async create(data: doctorBIF) {
     try {
       return await Doctor.create(data);
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -41,8 +43,10 @@ export default class DoctorDao extends UserDao {
       });
 
       return paginatedData(data, page, limit);
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -70,8 +74,10 @@ export default class DoctorDao extends UserDao {
           },
         ],
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -79,8 +85,10 @@ export default class DoctorDao extends UserDao {
   async updateSpecialty(id: string, id_specialty: string) {
     try {
       return await Doctor.update({ id_specialty }, { where: { id } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -94,8 +102,10 @@ export default class DoctorDao extends UserDao {
       if (check) return "SCHEDULE_ALREADY_EXISTS";
 
       return await Schedule.create(data);
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -111,8 +121,10 @@ export default class DoctorDao extends UserDao {
       return await Schedule.update(data, {
         where: { id: schedule.id },
       });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -125,8 +137,10 @@ export default class DoctorDao extends UserDao {
       if (!schedule) return "SCHEDULE_NOT_FOUND";
 
       return await Schedule.destroy({ where: { id: schedule.id } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 }

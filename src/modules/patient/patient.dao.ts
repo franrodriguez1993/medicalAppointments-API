@@ -13,8 +13,10 @@ export default class PatientDao extends UserDao {
   async create(data: patientBIF) {
     try {
       return await Patient.create(data);
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -34,8 +36,10 @@ export default class PatientDao extends UserDao {
       });
 
       return paginatedData(data, page, limit);
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -43,8 +47,10 @@ export default class PatientDao extends UserDao {
   async FindBySN(socialNumber: string) {
     try {
       return await Patient.findOne({ where: { social_number: socialNumber } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -52,8 +58,10 @@ export default class PatientDao extends UserDao {
   async findByID(id: string) {
     try {
       return await Patient.findOne({ where: { id }, include: { model: User } });
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 
@@ -64,8 +72,10 @@ export default class PatientDao extends UserDao {
         { social_number: social_number },
         { where: { id } }
       );
-    } catch (e: any) {
-      throw new Error(e.message);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      } else throw new Error(e.toString());
     }
   }
 }
