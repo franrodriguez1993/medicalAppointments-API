@@ -73,7 +73,7 @@ class DoctorController {
                         .json({ status: 200, msg: "OK", data: resService });
             }
             catch (e) {
-                logger_1.default.error(e.message);
+                logger_1.default.error(e);
                 return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
@@ -92,7 +92,7 @@ class DoctorController {
                 return res.status(201).json({ status: 201, msg: "DOCTOR_UPDATED" });
             }
             catch (e) {
-                logger_1.default.error(e.message);
+                logger_1.default.error(e);
                 return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
@@ -113,7 +113,7 @@ class DoctorController {
                 return res.status(201).json({ status: 201, msg: "DOCTOR_UPDATED" });
             }
             catch (e) {
-                logger_1.default.error(e.message);
+                logger_1.default.error(e);
                 return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
@@ -134,7 +134,7 @@ class DoctorController {
                     return res.status(201).json({ status: 201, msg: "DOCTOR_UPDATED" });
             }
             catch (e) {
-                logger_1.default.error(e.message);
+                logger_1.default.error(e);
                 return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
@@ -156,7 +156,7 @@ class DoctorController {
                     return res.status(201).json({ status: 201, msg: "SCHEDULE_ADDED" });
             }
             catch (e) {
-                logger_1.default.error(e.message);
+                logger_1.default.error(e);
                 return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
@@ -178,7 +178,7 @@ class DoctorController {
                     return res.status(201).json({ status: 201, msg: "SCHEDULE_UPDATED" });
             }
             catch (e) {
-                logger_1.default.error(e.message);
+                logger_1.default.error(e);
                 return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
@@ -199,7 +199,7 @@ class DoctorController {
                     return res.status(201).json({ status: 200, msg: "SCHEDULE_DELETED" });
             }
             catch (e) {
-                logger_1.default.error(e.message);
+                logger_1.default.error(e);
                 return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });

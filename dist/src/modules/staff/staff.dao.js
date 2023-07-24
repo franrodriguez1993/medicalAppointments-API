@@ -31,7 +31,11 @@ class StaffDao extends user_dao_1.UserDao {
             }
             catch (e) {
                 this.deleteUser(data.id_user).then((res) => {
-                    throw new Error(e.message);
+                    if (e instanceof Error) {
+                        throw new Error(e.message);
+                    }
+                    else
+                        throw new Error(e.toString());
                 });
             }
         });
@@ -48,7 +52,11 @@ class StaffDao extends user_dao_1.UserDao {
                 return { uid: user.id, jwt };
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -66,7 +74,11 @@ class StaffDao extends user_dao_1.UserDao {
                 });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -87,7 +99,11 @@ class StaffDao extends user_dao_1.UserDao {
                 return (0, pagination_1.paginatedData)(data, page, limit);
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -105,7 +121,11 @@ class StaffDao extends user_dao_1.UserDao {
                 });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -116,7 +136,11 @@ class StaffDao extends user_dao_1.UserDao {
                 return yield staff_model_1.default.update({ username }, { where: { id } });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -132,7 +156,11 @@ class StaffDao extends user_dao_1.UserDao {
                 return yield staff_model_1.default.update({ password: hashPass }, { where: { id } });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -143,7 +171,11 @@ class StaffDao extends user_dao_1.UserDao {
                 return yield staff_model_1.default.update({ salary }, { where: { id } });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -154,7 +186,11 @@ class StaffDao extends user_dao_1.UserDao {
                 return yield staff_model_1.default.update({ status }, { where: { id } });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }

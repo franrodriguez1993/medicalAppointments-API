@@ -20,7 +20,11 @@ class SpecialtyDao {
                 return yield specialties_model_1.default.create(data);
             }
             catch (e) {
-                throw new Error(e);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -30,7 +34,11 @@ class SpecialtyDao {
                 return yield specialties_model_1.default.findOne({ where: { name } });
             }
             catch (e) {
-                throw new Error(e);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -40,7 +48,11 @@ class SpecialtyDao {
                 return yield specialties_model_1.default.findOne({ where: { id } });
             }
             catch (e) {
-                throw new Error(e);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -50,7 +62,11 @@ class SpecialtyDao {
                 return yield specialties_model_1.default.destroy({ where: { id } });
             }
             catch (e) {
-                throw new Error(e);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -60,7 +76,11 @@ class SpecialtyDao {
                 return yield specialties_model_1.default.destroy({ where: {} });
             }
             catch (e) {
-                throw new Error(e);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }

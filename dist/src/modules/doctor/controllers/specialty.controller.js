@@ -30,7 +30,7 @@ class SpecialtyController {
                         .json({ status: 201, msg: "SPECIALTY_CREATED", data: resService.id });
             }
             catch (e) {
-                logger_1.default.error(e.message);
+                logger_1.default.error(e);
                 return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
@@ -47,7 +47,7 @@ class SpecialtyController {
                     return res.status(200).json({ status: 200, msg: "SPECIALTY_DELETED" });
             }
             catch (e) {
-                logger_1.default.error(e.message);
+                logger_1.default.error(e);
                 return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });

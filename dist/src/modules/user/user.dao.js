@@ -28,7 +28,11 @@ class UserDao {
                 return yield user_model_1.default.create(data);
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -42,7 +46,11 @@ class UserDao {
                 });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -56,7 +64,11 @@ class UserDao {
                 });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -70,7 +82,11 @@ class UserDao {
                 });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -81,7 +97,11 @@ class UserDao {
                 return yield user_model_1.default.update(Object.assign({}, data), { where: { id } });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -97,7 +117,11 @@ class UserDao {
                 return yield user_model_1.default.update({ mail }, { where: { id } });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -110,7 +134,11 @@ class UserDao {
                 });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -121,7 +149,11 @@ class UserDao {
                 return yield user_model_1.default.destroy({ where: {} });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -134,7 +166,11 @@ class UserDao {
                 });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -146,7 +182,11 @@ class UserDao {
                 });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }

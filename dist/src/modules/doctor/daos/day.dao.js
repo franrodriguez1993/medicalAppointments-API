@@ -21,7 +21,11 @@ class DayDao {
                 return yield days_model_1.default.create({ id, name });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -32,7 +36,11 @@ class DayDao {
                 return yield days_model_1.default.findOne({ where: { id } });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -43,7 +51,11 @@ class DayDao {
                 return yield days_model_1.default.findOne({ where: { name } });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }

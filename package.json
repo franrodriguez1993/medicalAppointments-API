@@ -10,7 +10,7 @@
     "test:appointment": "MODE=T jest --verbose --silent --detectOpenHandles ./test/appointment.test.ts",
     "build": "tsc",
     "start:dev": "MODE=D nodemon ./src/index.ts",
-    "start": "node ./dist/index.js"
+    "start:prod": "MODE=P node ./dist/src/index.js"
   },
   "keywords": [],
   "author": "",

@@ -31,7 +31,11 @@ class DoctorDao extends user_dao_1.UserDao {
                 return yield doctor_model_1.default.create(data);
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -52,7 +56,11 @@ class DoctorDao extends user_dao_1.UserDao {
                 return (0, pagination_1.paginatedData)(data, page, limit);
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -83,7 +91,11 @@ class DoctorDao extends user_dao_1.UserDao {
                 });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -94,7 +106,11 @@ class DoctorDao extends user_dao_1.UserDao {
                 return yield doctor_model_1.default.update({ id_specialty }, { where: { id } });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -110,7 +126,11 @@ class DoctorDao extends user_dao_1.UserDao {
                 return yield schedules_model_1.default.create(data);
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -128,7 +148,11 @@ class DoctorDao extends user_dao_1.UserDao {
                 });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }
@@ -144,7 +168,11 @@ class DoctorDao extends user_dao_1.UserDao {
                 return yield schedules_model_1.default.destroy({ where: { id: schedule.id } });
             }
             catch (e) {
-                throw new Error(e.message);
+                if (e instanceof Error) {
+                    throw new Error(e.message);
+                }
+                else
+                    throw new Error(e.toString());
             }
         });
     }

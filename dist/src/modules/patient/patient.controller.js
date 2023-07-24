@@ -37,7 +37,7 @@ class PatientController {
             }
             catch (e) {
                 logger_1.default.error(e);
-                return res.status(500).json({ status: 500, msg: e.message });
+                return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
     }
@@ -73,7 +73,7 @@ class PatientController {
             }
             catch (e) {
                 logger_1.default.error(e);
-                return res.status(500).json({ status: 500, msg: e.message });
+                return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
     }
@@ -93,7 +93,7 @@ class PatientController {
             }
             catch (e) {
                 logger_1.default.error(e);
-                return res.status(500).json({ status: 500, msg: e.message });
+                return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
     }
@@ -112,7 +112,7 @@ class PatientController {
             }
             catch (e) {
                 logger_1.default.error(e);
-                return res.status(500).json({ status: 500, msg: e.message });
+                return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
     }
@@ -134,7 +134,7 @@ class PatientController {
             }
             catch (e) {
                 logger_1.default.error(e);
-                return res.status(500).json({ status: 500, msg: e.message });
+                return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
             }
         });
     }
