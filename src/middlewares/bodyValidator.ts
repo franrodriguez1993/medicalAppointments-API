@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
+import ResponseEntity from "../utils/ResponseEntity";
 
 export const validatorManager = (
   req: Request,
@@ -10,7 +11,7 @@ export const validatorManager = (
   if (!errors.isEmpty()) {
     return res
       .status(400)
-      .json({ status: 400, msg: "INVALID_BODY_REQUEST", data: errors.array() });
+      .json(new ResponseEntity(400, "INVALID_BODY_REQUEST", errors.array()));
   }
   next();
 };

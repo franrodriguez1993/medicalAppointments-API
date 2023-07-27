@@ -26,13 +26,13 @@ class StaffService {
             //IF EXISTS:
             if (user) {
                 if (user.staff) {
-                    return "DNI_IN_USE";
+                    throw new Error("DNI_IN_USE");
                 }
                 else {
                     if (user.mail === data.mail) {
                         const checkUsername = yield daoStaff.findByUsername(data.username);
                         if (checkUsername)
-                            return "USERNAME_IN_USE";
+                            throw new Error("USERNAME_IN_USE");
                         const newStaff = yield daoStaff.register({
                             id,
                             id_user: user.id,
@@ -43,21 +43,21 @@ class StaffService {
                             salary: data.salary,
                         });
                         if (!newStaff)
-                            return "ERROR_CREATING_STAFF";
+                            throw new Error("ERROR_CREATING_STAFF");
                         return newStaff.id;
                     }
                     else {
-                        return "USER_REGISTERED_WITH_OTHER_MAIL";
+                        throw new Error("USER_REGISTERED_WITH_OTHER_MAIL");
                     }
                 }
             }
             //IF NOT EXISTS:
             const checkMail = yield daoStaff.findUserByMail(data.mail);
             if (checkMail)
-                return "MAIL_IN_USE";
+                throw new Error("MAIL_IN_USE");
             const checkUsername = yield daoStaff.findByUsername(data.username);
             if (checkUsername)
-                return "USERNAME_IN_USE";
+                throw new Error("USERNAME_IN_USE");
             const newUser = yield daoStaff.createUser({
                 id: id_user,
                 name: data.name,
@@ -68,7 +68,7 @@ class StaffService {
                 birthday: data.birthday,
             });
             if (!newUser)
-                return "ERROR_CREATING_USER";
+                throw new Error("ERROR_CREATING_USER");
             const newStaff = yield daoStaff.register({
                 id,
                 id_user,
@@ -79,7 +79,7 @@ class StaffService {
                 salary: data.salary,
             });
             if (!newStaff)
-                return "ERROR_CREATING_STAFF";
+                throw new Error("ERROR_CREATING_STAFF");
             return newStaff.id;
         });
     }

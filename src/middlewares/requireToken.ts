@@ -3,7 +3,7 @@ import { verifyToken } from "../utils/jwtHandler";
 import { StaffPayload } from "../interfaces/staff/payload.interface";
 import { staffOIF } from "../interfaces/staff/staff.interface";
 import StaffDao from "../modules/staff/staff.dao";
-import logger from "../utils/logger";
+import ResponseEntity from "../utils/ResponseEntity";
 
 const daoStaff = new StaffDao();
 
@@ -15,7 +15,9 @@ export async function requireToken(
   try {
     let token: string = req.headers?.authorization;
     if (!token)
-      return res.status(401).json({ status: 401, msg: "TOKEN_REQUIRED" });
+      return res
+        .status(401)
+        .json(new ResponseEntity(401, "TOKEN_REQUIRED", null));
 
     token = token.split(" ")[1];
 
@@ -24,19 +26,31 @@ export async function requireToken(
     const staff: staffOIF = await daoStaff.findByID(checkToken.uid);
 
     if (!staff)
-      return res.status(404).json({ status: 404, msg: "STAFF_NOT_FOUND" });
+      return res
+        .status(404)
+        .json(new ResponseEntity(404, "STAFF_NOT_FOUND", null));
 
     next();
-  } catch (e: any) {
-    if (e.message === "invalid signature")
-      return res.json({ status: 403, message: "INVALID_SIGNATURE" });
-    else if (e.message === "jwt expired")
-      return res.json({ status: 403, message: "JWT_EXPIRED" });
-    else if (e.message === "invalid token")
-      return res.json({ status: 403, message: "INVALID_TOKEN" });
-    else {
-      logger.error(e.message);
-      return res.json({ status: 500, message: "INTERNAL_SERVER_ERROR" });
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      switch (e.message) {
+        case "invalid signature":
+          return res
+            .status(403)
+            .json(new ResponseEntity(403, "INVALID_SIGNATURE", null));
+        case "jwt expired":
+          return res
+            .status(403)
+            .json(new ResponseEntity(403, "JWT_EXPIRED", null));
+        case "invalid token":
+          return res
+            .status(403)
+            .json(new ResponseEntity(403, "INVALID_TOKEN", null));
+        default:
+          res
+            .status(500)
+            .json(new ResponseEntity(500, "INTERNAL_SERVER_ERROR", null));
+      }
     }
   }
 }

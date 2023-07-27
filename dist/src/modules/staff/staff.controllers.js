@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const staff_services_1 = __importDefault(require("./staff.services"));
 const logger_1 = __importDefault(require("../../utils/logger"));
+const ResponseEntity_1 = __importDefault(require("../../utils/ResponseEntity"));
 const service = new staff_services_1.default();
 class StaffController {
     /**  REGISTER  **/
@@ -22,22 +23,31 @@ class StaffController {
             try {
                 const data = req.body;
                 const resService = yield service.register(data);
-                if (resService === "MAIL_IN_USE" ||
-                    resService === "USERNAME_IN_USE" ||
-                    resService === "DNI_IN_USE" ||
-                    resService === "USER_REGISTERED_WITH_OTHER_MAIL")
-                    return res.status(400).json({ status: 400, msg: resService });
-                else if (resService === "ERROR_CREATING_STAFF" ||
-                    resService === "ERROR_CREATING_USER")
-                    return res.status(500).json({ status: 500, msg: resService });
-                else
-                    return res
-                        .status(201)
-                        .json({ status: 201, msg: "STAFF_REGISTERED", data: resService });
+                return res
+                    .status(201)
+                    .json(new ResponseEntity_1.default(201, "STAFF_REGISTERED", resService));
             }
             catch (e) {
-                logger_1.default.error(e);
-                return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+                if (e instanceof Error) {
+                    switch (e.message) {
+                        case "DNI_IN_USE":
+                        case "MAIL_IN_USE":
+                        case "USERNAME_IN_USE":
+                        case "USER_REGISTERED_WITH_OTHER_MAIL":
+                            return res
+                                .status(400)
+                                .json(new ResponseEntity_1.default(400, e.message, null));
+                        case "ERROR_CREATING_STAFF":
+                        case "ERROR_CREATING_USER":
+                            return res
+                                .status(500)
+                                .json(new ResponseEntity_1.default(500, e.message, null));
+                        default:
+                            return res
+                                .status(500)
+                                .json(new ResponseEntity_1.default(500, "SERVER_ERROR", null));
+                    }
+                }
             }
         });
     }

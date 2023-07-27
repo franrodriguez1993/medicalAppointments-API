@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import AppointmentService from "./appointment.services";
 import logger from "../../utils/logger";
+import ResponseEntity from "../../utils/ResponseEntity";
 
 const service = new AppointmentService();
 
@@ -12,29 +13,32 @@ export default class AppointmentController {
 
       const resService = await service.create(data);
 
-      if (
-        resService === "DAY_NOT_FOUND" ||
-        resService === "DOCTOR_NOT_FOUND" ||
-        resService === "PATIENT_NOT_FOUND" ||
-        resService === "STAFF_NOT_FOUND"
-      )
-        return res.status(404).json({ status: 404, msg: resService });
-      else if (
-        resService === "APPOINTMENT_ALREADY_EXISTS" ||
-        resService === "INVALID ID" ||
-        resService === "INVALID_DOCTOR_SCHEDULE" ||
-        resService === "MAXIMUM_APPOINTMENTS"
-      )
-        return res.status(400).json({ status: 400, msg: resService });
-      else
-        return res.status(201).json({
-          status: 201,
-          msg: "APPOINTMENT_CREATED",
-          data: resService.id,
-        });
+      return res
+        .status(201)
+        .json(new ResponseEntity(201, "APPOINTMENT_CREATED", resService.id));
     } catch (e: unknown) {
-      logger.error(e);
-      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+      if (e instanceof Error) {
+        switch (e.message) {
+          case "DAY_NOT_FOUND":
+          case "DOCTOR_NOT_FOUND":
+          case "PATIENT_NOT_FOUND":
+          case "STAFF_NOT_FOUND":
+            return res
+              .status(404)
+              .json(new ResponseEntity(404, e.message, null));
+          case "APPOINTMENT_ALREADY_EXISTS":
+          case "INVALID ID":
+          case "INVALID_DOCTOR_SCHEDULE":
+          case "MAXIMUM_APPOINTMENTS":
+            return res
+              .status(400)
+              .json(new ResponseEntity(400, e.message, null));
+          default:
+            return res
+              .status(500)
+              .json(new ResponseEntity(500, "SERVER_ERROR", null));
+        }
+      }
     }
   }
 
@@ -46,15 +50,24 @@ export default class AppointmentController {
 
       const resService = await service.listAppointment(id, date.toString());
 
-      if (resService === "INVALID_ID")
-        return res.status(400).json({ status: 400, msg: resService });
-      else if (resService === "DOCTOR_NOT_FOUND")
-        return res.status(404).json({ status: 404, msg: resService });
-
-      return res.status(200).json({ status: 200, msg: "OK", data: resService });
+      return res.status(200).json(new ResponseEntity(200, "OK", resService));
     } catch (e: unknown) {
-      logger.error(e);
-      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+      if (e instanceof Error) {
+        switch (e.message) {
+          case "INVALID_ID":
+            return res
+              .status(400)
+              .json(new ResponseEntity(400, e.message, null));
+          case "DOCTOR_NOT_FOUND":
+            return res
+              .status(404)
+              .json(new ResponseEntity(404, e.message, null));
+          default:
+            return res
+              .status(500)
+              .json(new ResponseEntity(500, "SERVER_ERROR", null));
+        }
+      }
     }
   }
 
@@ -63,17 +76,23 @@ export default class AppointmentController {
     try {
       const { id } = req.params;
 
-      const resService = await service.deleteOne(id);
-
-      if (resService === "INVALID_ID")
-        return res.status(400).json({ status: 400, msg: resService });
-      else
-        return res
-          .status(200)
-          .json({ status: 200, msg: "APPOINTMENT_DELETED" });
+      await service.deleteOne(id);
+      return res
+        .status(200)
+        .json(new ResponseEntity(200, "APPOINTMENT_DELETED", null));
     } catch (e: unknown) {
-      logger.error(e);
-      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+      if (e instanceof Error) {
+        switch (e.message) {
+          case "INVALID_ID":
+            return res
+              .status(400)
+              .json(new ResponseEntity(400, e.message, null));
+          default:
+            return res
+              .status(500)
+              .json(new ResponseEntity(500, "SERVER_ERROR", null));
+        }
+      }
     }
   }
 }

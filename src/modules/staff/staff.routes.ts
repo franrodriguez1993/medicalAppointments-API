@@ -22,11 +22,17 @@ staffRouter.post("/register", validateStaffBody, controller.register);
 staffRouter.post("/login", validateLoginBody, controller.login);
 staffRouter.put(
   "/:id/personal",
+  requireToken,
   UpdatePDStaffBody,
   controller.updatePersonalData
 );
 staffRouter.get("/", requireToken, controller.list);
-staffRouter.put("/:id/mail", mailValidator, controller.changeMail);
+staffRouter.put(
+  "/:id/mail",
+  requireToken,
+  mailValidator,
+  controller.changeMail
+);
 staffRouter.put(
   "/:id/username",
   requireToken,

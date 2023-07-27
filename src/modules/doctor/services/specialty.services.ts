@@ -8,7 +8,7 @@ export default class SpecialtyService {
   /**  CREATE SPECIALTY  **/
   async create(data: specialtiesBIF) {
     const checkName = await daoSpecialty.findByName(data.name);
-    if (checkName) return "SPECIALTY_ALREADY_CREATED";
+    if (checkName) throw new Error("SPECIALTY_ALREADY_CREATED");
 
     const id = uuid();
     return await daoSpecialty.create({ ...data, id });
@@ -16,7 +16,7 @@ export default class SpecialtyService {
 
   /**  DELETE SPECIALTY  **/
   async delete(id: string) {
-    if (!uuidValidate(id)) return "INVALID_ID";
+    if (!uuidValidate(id)) throw new Error("INVALID_ID");
     return await daoSpecialty.delete(id);
   }
 }

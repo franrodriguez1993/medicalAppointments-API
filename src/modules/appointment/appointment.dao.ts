@@ -18,7 +18,7 @@ export default class AppointmentDao {
           id_day: data.id_day,
         },
       });
-      if (appointment) return "APPOINTMENT_ALREADY_EXISTS";
+      if (appointment) throw new Error("APPOINTMENT_ALREADY_EXISTS");
 
       return await Appointment.create(data);
     } catch (e: unknown) {

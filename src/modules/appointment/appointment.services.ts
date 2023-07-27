@@ -27,32 +27,32 @@ export default class AppointmentService {
       !isValidUuid(data.id_patient) ||
       !isValidUuid(data.id_staff)
     ) {
-      return "INVALID ID";
+      throw new Error("INVALID ID");
     }
 
     //Find users:
     const staff: staffOIF = await daoStaff.findByID(data.id_staff);
-    if (!staff) return "STAFF_NOT_FOUND";
+    if (!staff) throw new Error("STAFF_NOT_FOUND");
 
     const patient: patientOIF = await daoPatient.findByID(data.id_patient);
-    if (!patient) return "PATIENT_NOT_FOUND";
+    if (!patient) throw new Error("PATIENT_NOT_FOUND");
 
     const doctor: doctorOIF = await daoDoctor.findByID(data.id_doctor);
-    if (!doctor) return "DOCTOR_NOT_FOUND";
+    if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
 
     const day: dayOIF = await daoDay.findByID(data.id_day);
-    if (!day) return "DAY_NOT_FOUND";
+    if (!day) throw new Error("DAY_NOT_FOUND");
 
     //Check Schedule:
     const checkDay = doctor.schedules.find((s) => s.id_day === data.id_day);
-    if (!checkDay) return "INVALID_DOCTOR_SCHEDULE";
+    if (!checkDay) throw new Error("INVALID_DOCTOR_SCHEDULE");
 
     //Check appointments:
     const listAppointments = await daoAppointment.listDayAppointment(
       data.id_doctor,
       data.date
     );
-    if (listAppointments.length >= 10) return "MAXIMUM_APPOINTMENTS";
+    if (listAppointments.length >= 10) throw new Error("MAXIMUM_APPOINTMENTS");
 
     //If everything is ok:
     return await daoAppointment.create({ ...data, id: `${uuid()}` });
@@ -60,18 +60,18 @@ export default class AppointmentService {
 
   /**   LIST APPOINTMENT **/
   async listAppointment(id_doctor: string, date: string) {
-    if (!isValidUuid(id_doctor)) return "INVALID_ID";
+    if (!isValidUuid(id_doctor)) throw new Error("INVALID_ID");
     const formatedDate = date.split("-").join("/");
 
     const doctor: doctorOIF = await daoDoctor.findByID(id_doctor);
-    if (!doctor) return "DOCTOR_NOT_FOUND";
+    if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
 
     return await daoAppointment.listDayAppointment(id_doctor, formatedDate);
   }
 
   /**   DELETE APPOINTMENT **/
   async deleteOne(id: string) {
-    if (!isValidUuid(id)) return "INVALID_ID";
+    if (!isValidUuid(id)) throw new Error("INVALID_ID");
     return await daoAppointment.deleteOne(id);
   }
 }

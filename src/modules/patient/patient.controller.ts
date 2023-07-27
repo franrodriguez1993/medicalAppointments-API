@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import PatientService from "./patient.services";
 import logger from "../../utils/logger";
+import ResponseEntity from "../../utils/ResponseEntity";
 
 const service = new PatientService();
 
@@ -12,25 +13,30 @@ export default class PatientController {
 
       const resService = await service.create(data);
 
-      if (
-        resService === "PATIENT_ALREADY_EXISTS" ||
-        resService === "USER_REGISTERED_WITH_ANOTHER_MAIL" ||
-        resService === "MAIL_IN_USE" ||
-        resService === "SOCIAL_NUMBER_IN_USE"
-      )
-        return res.status(400).json({ status: 400, msg: resService });
-      else if (
-        resService === "ERROR_CREATING_USER" ||
-        resService === "ERROR_CREATING_PATIENT"
-      )
-        return res.status(500).json({ status: 500, msg: resService });
-      else
-        return res
-          .status(201)
-          .json({ status: 201, msg: "PATIENT_CREATED", data: resService });
+      return res
+        .status(201)
+        .json({ status: 201, msg: "PATIENT_CREATED", data: resService });
     } catch (e: unknown) {
-      logger.error(e);
-      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+      if (e instanceof Error) {
+        switch (e.message) {
+          case "PATIENT_ALREADY_EXISTS":
+          case "USER_REGISTERED_WITH_ANOTHER_MAIL":
+          case "MAIL_IN_USE":
+          case "SOCIAL_NUMBER_IN_USE":
+            return res
+              .status(400)
+              .json(new ResponseEntity(400, e.message, null));
+          case "ERROR_CREATING_USER":
+          case "ERROR_CREATING_PATIENT":
+            return res
+              .status(500)
+              .json(new ResponseEntity(500, e.message, null));
+          default:
+            return res
+              .status(500)
+              .json(new ResponseEntity(500, "SERVER_ERROR", null));
+        }
+      }
     }
   }
 
@@ -42,10 +48,11 @@ export default class PatientController {
 
       const resService = await service.list(page, size);
 
-      return res.status(200).json({ status: 200, msg: "OK", data: resService });
+      return res.status(200).json(new ResponseEntity(200, "OK", resService));
     } catch (e: unknown) {
-      logger.error(e);
-      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+      return res
+        .status(500)
+        .json(new ResponseEntity(500, "SERVER_ERROR", null));
     }
   }
 
@@ -55,18 +62,26 @@ export default class PatientController {
       const { dni } = req.params;
 
       const resService = await service.findByDNI(dni);
-
-      if (resService === "INVALID_DNI" || resService === "USER_IS_NOT_PATIENT")
-        return res.status(400).json({ status: 400, msg: resService });
-      else if (resService === "PATIENT_NOT_FOUND")
-        return res.status(404).json({ status: 404, msg: resService });
-      else
-        return res
-          .status(200)
-          .json({ status: 200, msg: "OK", data: resService });
+      return res.status(200).json(new ResponseEntity(200, "OK", resService));
     } catch (e: unknown) {
-      logger.error(e);
-      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+      if (e instanceof Error) {
+        switch (e.message) {
+          case "INVALID_DNI":
+          case "USER_IS_NOT_PATIENT":
+            return res
+              .status(400)
+              .json(new ResponseEntity(400, e.message, null));
+          case "PATIENT_NOT_FOUND":
+            return res
+              .status(404)
+              .json(new ResponseEntity(404, e.message, null));
+
+          default:
+            return res
+              .status(500)
+              .json(new ResponseEntity(500, "SERVER_ERROR", null));
+        }
+      }
     }
   }
 
@@ -79,14 +94,26 @@ export default class PatientController {
 
       const resService = await service.updatePD(id, data);
 
-      if (resService === "INVALID_ID")
-        return res.status(400).json({ status: 400, msg: resService });
-      else if (resService === "PATIENT_NOT_FOUND")
-        return res.status(404).json({ status: 404, msg: resService });
-      else return res.status(201).json({ status: 201, msg: "PATIENT_UPDATED" });
+      return res
+        .status(200)
+        .json(new ResponseEntity(200, "PATIENT_UPDATED", resService));
     } catch (e: unknown) {
-      logger.error(e);
-      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+      if (e instanceof Error) {
+        switch (e.message) {
+          case "INVALID_ID":
+            return res
+              .status(400)
+              .json(new ResponseEntity(400, e.message, null));
+          case "PATIENT_NOT_FOUND":
+            return res
+              .status(404)
+              .json(new ResponseEntity(404, e.message, null));
+          default:
+            return res
+              .status(500)
+              .json(new ResponseEntity(500, "SERVER_ERROR", null));
+        }
+      }
     }
   }
 
@@ -98,15 +125,26 @@ export default class PatientController {
 
       const resService = await service.updateSN(id, social_number);
 
-      if (resService === "INVALID_ID")
-        return res.status(400).json({ status: 400, msg: resService });
-      else if (resService === "PATIENT_NOT_FOUND")
-        return res.status(404).json({ status: 404, msg: resService });
-
-      return res.status(201).json({ status: 201, msg: "PATIENT_UPDATED" });
+      return res
+        .status(200)
+        .json(new ResponseEntity(200, "PATIENT_UPDATED", resService));
     } catch (e: unknown) {
-      logger.error(e);
-      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+      if (e instanceof Error) {
+        switch (e.message) {
+          case "INVALID_ID":
+            return res
+              .status(400)
+              .json(new ResponseEntity(400, e.message, null));
+          case "PATIENT_NOT_FOUND":
+            return res
+              .status(404)
+              .json(new ResponseEntity(404, e.message, null));
+          default:
+            return res
+              .status(500)
+              .json(new ResponseEntity(500, "SERVER_ERROR", null));
+        }
+      }
     }
   }
 
@@ -118,18 +156,28 @@ export default class PatientController {
 
       const resService = await service.changeMail(id, mail);
 
-      if (
-        resService === "INVALID_ID" ||
-        resService === "MAIL_IN_USE" ||
-        resService === "MAIL_IS_THE_SAME"
-      )
-        return res.status(400).json({ status: 400, msg: resService });
-      else if (resService === "PATIENT_NOT_FOUND")
-        return res.status(404).json({ status: 404, msg: resService });
-      else return res.status(201).json({ status: 201, msg: "PATIENT_UPDATED" });
+      return res
+        .status(200)
+        .json(new ResponseEntity(200, "PATIENT_UPDATED", resService));
     } catch (e: unknown) {
-      logger.error(e);
-      return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+      if (e instanceof Error) {
+        switch (e.message) {
+          case "INVALID_ID":
+          case "MAIL_IN_USE":
+          case "MAIL_IS_THE_SAME":
+            return res
+              .status(400)
+              .json(new ResponseEntity(400, e.message, null));
+          case "PATIENT_NOT_FOUND":
+            return res
+              .status(404)
+              .json(new ResponseEntity(404, e.message, null));
+          default:
+            return res
+              .status(500)
+              .json(new ResponseEntity(500, "SERVER_ERROR", null));
+        }
+      }
     }
   }
 }

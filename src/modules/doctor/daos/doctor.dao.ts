@@ -99,7 +99,7 @@ export default class DoctorDao extends UserDao {
         where: { id_doctor: data.id_doctor, id_day: data.id_day },
       });
 
-      if (check) return "SCHEDULE_ALREADY_EXISTS";
+      if (check) throw new Error("SCHEDULE_ALREADY_EXISTS");
 
       return await Schedule.create(data);
     } catch (e: unknown) {
@@ -116,7 +116,7 @@ export default class DoctorDao extends UserDao {
         where: { id_doctor: data.id_doctor, id_day: data.id_day },
       });
 
-      if (!schedule) return "SCHEDULE_NOT_FOUND";
+      if (!schedule) throw new Error("SCHEDULE_NOT_FOUND");
 
       return await Schedule.update(data, {
         where: { id: schedule.id },
@@ -134,7 +134,7 @@ export default class DoctorDao extends UserDao {
       const schedule: schedulesOIF = await Schedule.findOne({
         where: { id_doctor, id_day },
       });
-      if (!schedule) return "SCHEDULE_NOT_FOUND";
+      if (!schedule) throw new Error("SCHEDULE_NOT_FOUND");
 
       return await Schedule.destroy({ where: { id: schedule.id } });
     } catch (e: unknown) {

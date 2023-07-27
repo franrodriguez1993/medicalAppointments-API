@@ -30,7 +30,7 @@ export default class StaffDao extends UserDao {
       const user: staffOIF = await Staff.findOne({ where: { username } });
 
       const checkPass = await verifyEncrypt(password, user.password);
-      if (!checkPass) return "INVALID_CREDENTIALS";
+      if (!checkPass) throw new Error("INVALID_CREDENTIALS");
 
       const jwt = generateToken(user.id);
       return { uid: user.id, jwt };

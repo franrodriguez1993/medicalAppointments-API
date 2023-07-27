@@ -21,11 +21,11 @@ export default class StaffService {
     //IF EXISTS:
     if (user) {
       if (user.staff) {
-        return "DNI_IN_USE";
+        throw new Error("DNI_IN_USE");
       } else {
         if (user.mail === data.mail) {
           const checkUsername = await daoStaff.findByUsername(data.username);
-          if (checkUsername) return "USERNAME_IN_USE";
+          if (checkUsername) throw new Error("USERNAME_IN_USE");
           const newStaff: staffOIF = await daoStaff.register({
             id,
             id_user: user.id,
@@ -36,19 +36,20 @@ export default class StaffService {
             salary: data.salary,
           });
 
-          if (!newStaff) return "ERROR_CREATING_STAFF";
+          if (!newStaff) throw new Error("ERROR_CREATING_STAFF");
+
           return newStaff.id;
         } else {
-          return "USER_REGISTERED_WITH_OTHER_MAIL";
+          throw new Error("USER_REGISTERED_WITH_OTHER_MAIL");
         }
       }
     }
     //IF NOT EXISTS:
     const checkMail = await daoStaff.findUserByMail(data.mail);
-    if (checkMail) return "MAIL_IN_USE";
+    if (checkMail) throw new Error("MAIL_IN_USE");
 
     const checkUsername = await daoStaff.findByUsername(data.username);
-    if (checkUsername) return "USERNAME_IN_USE";
+    if (checkUsername) throw new Error("USERNAME_IN_USE");
 
     const newUser: userOIF = await daoStaff.createUser({
       id: id_user,
@@ -60,7 +61,7 @@ export default class StaffService {
       birthday: data.birthday,
     });
 
-    if (!newUser) return "ERROR_CREATING_USER";
+    if (!newUser) throw new Error("ERROR_CREATING_USER");
 
     const newStaff: staffOIF = await daoStaff.register({
       id,
@@ -72,14 +73,15 @@ export default class StaffService {
       salary: data.salary,
     });
 
-    if (!newStaff) return "ERROR_CREATING_STAFF";
+    if (!newStaff) throw new Error("ERROR_CREATING_STAFF");
+
     return newStaff.id;
   }
 
   /**  LOGIN STAFF **/
   async login(username: string, password: string) {
     const checkUser = await daoStaff.findByUsername(username);
-    if (!checkUser) return "INVALID_CREDENTIALS";
+    if (!checkUser) throw new Error("INVALID_CREDENTIALS");
 
     return await daoStaff.login(username, password);
   }
@@ -91,66 +93,66 @@ export default class StaffService {
 
   /**  UPDATE PERSONAL DATA STAFF **/
   async updatePersonalData(id: string, data: userUpdateIF) {
-    if (!uuidValidate(id)) return "INVALID_ID";
+    if (!uuidValidate(id)) throw new Error("INVALID_ID");
 
     const staff: staffOIF = await daoStaff.findByID(id);
 
-    if (!staff) return "STAFF_NOT_FOUND";
+    if (!staff) throw new Error("STAFF_NOT_FOUND");
 
     return await daoStaff.updateUser(staff.user.id, data);
   }
 
   /**  CHANGE MAIL **/
   async changeMail(id: string, mail: string) {
-    if (!uuidValidate(id)) return "INVALID_ID";
+    if (!uuidValidate(id)) throw new Error("INVALID_ID");
 
     const staff: staffOIF = await daoStaff.findByID(id);
 
-    if (!staff) return "STAFF_NOT_FOUND";
+    if (!staff) throw new Error("STAFF_NOT_FOUND");
 
     return await daoStaff.changeMail(staff.user.id, mail);
   }
 
   /**  CHANGE USERNAME **/
   async changeUsername(id: string, username: string) {
-    if (!uuidValidate(id)) return "INVALID_ID";
+    if (!uuidValidate(id)) throw new Error("INVALID_ID");
 
     const staff: staffOIF = await daoStaff.findByID(id);
-    if (!staff) return "STAFF_NOT_FOUND";
+    if (!staff) throw new Error("STAFF_NOT_FOUND");
 
-    if (staff.username === username) return "USERNAME_IS_THE_SAME";
+    if (staff.username === username) throw new Error("USERNAME_IS_THE_SAME");
 
     const checkUsername = await daoStaff.findByUsername(username);
 
-    if (checkUsername) return "USERNAME_ALREADY_IN_USE";
+    if (checkUsername) throw new Error("USERNAME_ALREADY_IN_USE");
 
     return await daoStaff.changeUsername(id, username);
   }
 
   /**  CHANGE PASSWORD **/
   async changePassword(id: string, password: string) {
-    if (!uuidValidate(id)) return "INVALID_ID";
+    if (!uuidValidate(id)) throw new Error("INVALID_ID");
 
     const staff: staffOIF = await daoStaff.findByID(id);
-    if (!staff) return "STAFF_NOT_FOUND";
+    if (!staff) throw new Error("STAFF_NOT_FOUND");
 
     return await daoStaff.changePassword(id, password);
   }
 
   /**  FIND BY ID  **/
   async findByID(id: string) {
-    if (!uuidValidate(id)) return "INVALID_ID";
+    if (!uuidValidate(id)) throw new Error("INVALID_ID");
     const staff: staffOIF = await daoStaff.findByID(id);
-    if (!staff) return "STAFF_NOT_FOUND";
+    if (!staff) throw new Error("STAFF_NOT_FOUND");
     return staff;
   }
 
   /**  UPDATE SALARY  **/
   async updateSalary(id: string, salary: number) {
-    if (!uuidValidate(id)) return "INVALID_ID";
+    if (!uuidValidate(id)) throw new Error("INVALID_ID");
     const staff: staffOIF = await daoStaff.findByID(id);
 
-    if (!staff) return "STAFF_NOT_FOUND";
+    if (!staff) throw new Error("STAFF_NOT_FOUND");
 
     return await daoStaff.updateSalary(id, salary);
   }
@@ -159,12 +161,13 @@ export default class StaffService {
   async updateStatus(id: string, status: string) {
     const statusList = ["active", "vacation", "licence", "suspended"];
 
-    if (!uuidValidate(id)) return "INVALID_ID";
+    if (!uuidValidate(id)) throw new Error("INVALID_ID");
 
     const staff: staffOIF = await daoStaff.findByID(id);
-    if (!staff) return "STAFF_NOT_FOUND";
+    if (!staff) throw new Error("STAFF_NOT_FOUND");
 
-    if (!statusList.find((s) => s === status)) return "INVALID_STATUS";
+    if (!statusList.find((s) => s === status))
+      throw new Error("INVALID_STATUS");
 
     return await daoStaff.updateStatus(id, status);
   }

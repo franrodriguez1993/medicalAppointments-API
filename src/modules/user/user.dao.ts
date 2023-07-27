@@ -92,10 +92,10 @@ export class UserDao {
   async changeMail(id: string, mail: string) {
     try {
       const user: userOIF = await User.findOne({ where: { id } });
-      if (user.mail === mail) return "MAIL_IS_THE_SAME";
+      if (user.mail === mail) throw new Error("MAIL_IS_THE_SAME");
 
       const checkMail = await User.findOne({ where: { mail } });
-      if (checkMail) return "MAIL_IN_USE";
+      if (checkMail) throw new Error("MAIL_IN_USE");
 
       return await User.update({ mail }, { where: { id } });
     } catch (e: unknown) {
