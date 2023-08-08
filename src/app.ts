@@ -1,7 +1,7 @@
-import express from "express";
-import cors from "cors";
-import configServer from "./config/configServer";
 import "dotenv/config";
+import cors from "cors";
+import express from "express";
+import configServer from "./config/configServer";
 
 /**   ROUTERS    **/
 import staffRouter from "./modules/staff/staff.routes";
@@ -13,7 +13,10 @@ import routerAppointment from "./modules/appointment/appointment.routes";
 const app = express();
 
 /**   CORS    **/
-const urlList: Array<string> = [configServer.cors.url];
+const urlcors: string = configServer.cors.url;
+
+const urlList: Array<string> = [];
+urlList.push(urlcors);
 
 const corsOptions = {
   credentials: true,
