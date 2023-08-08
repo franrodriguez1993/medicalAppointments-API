@@ -14,40 +14,45 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const patient_dao_1 = __importDefault(require("./patient.dao"));
 const uuid_1 = require("uuid");
-const daoPatient = new patient_dao_1.default();
 class PatientService {
+    constructor() {
+        this.daoPatient = new patient_dao_1.default();
+    }
     /**  CREATE  **/
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = (0, uuid_1.v4)();
             const id_user = (0, uuid_1.v4)();
-            const user = yield daoPatient.findUserByDNI(data.dni);
+            const user = yield this.daoPatient.findUserByDNI(data.dni);
             //IF USER EXISTS:
             if (user) {
                 if (user.patient) {
-                    return "PATIENT_ALREADY_EXISTS";
+                    throw new Error("PATIENT_ALREADY_EXISTS");
                 }
                 else {
                     if (user.mail !== data.mail) {
-                        return "USER_REGISTERED_WITH_ANOTHER_MAIL";
+                        throw new Error("USER_REGISTERED_WITH_ANOTHER_MAIL");
                     }
                     else {
-                        const patient = yield daoPatient.create({
+                        const checkSN = yield this.daoPatient.FindBySN(data.social_number);
+                        if (checkSN)
+                            throw new Error("SOCIAL_NUMBER_IN_USE");
+                        const patient = yield this.daoPatient.create({
                             id,
                             id_user: user.id,
                             social_number: data.social_number,
                         });
                         if (!patient)
-                            return "ERROR_CREATING_PATIENT";
+                            throw new Error("ERROR_CREATING_PATIENT");
                         return patient.id;
                     }
                 }
             }
             //IF USER DOESN'T EXISTS:
-            const checkMail = yield daoPatient.findUserByMail(data.mail);
+            const checkMail = yield this.daoPatient.findUserByMail(data.mail);
             if (checkMail)
-                return "MAIL_IN_USE";
-            const newUser = yield daoPatient.createUser({
+                throw new Error("MAIL_IN_USE");
+            const newUser = yield this.daoPatient.createUser({
                 id: id_user,
                 name: data.name,
                 lastname: data.lastname,
@@ -57,24 +62,24 @@ class PatientService {
                 birthday: data.birthday,
             });
             if (!newUser)
-                return "ERROR_CREATING_USER";
-            const checkSN = yield daoPatient.FindBySN(data.social_number);
+                throw new Error("ERROR_CREATING_USER");
+            const checkSN = yield this.daoPatient.FindBySN(data.social_number);
             if (checkSN)
-                return "SOCIAL_NUMBER_IN_USE";
-            const newPatient = yield daoPatient.create({
+                throw new Error("SOCIAL_NUMBER_IN_USE");
+            const newPatient = yield this.daoPatient.create({
                 id,
                 id_user,
                 social_number: data.social_number,
             });
             if (!newPatient)
-                return "ERROR_CREATING_PATIENT";
+                throw new Error("ERROR_CREATING_PATIENT");
             return newPatient.id;
         });
     }
     /**  LIST PATIENTS  **/
     list(page, size) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield daoPatient.list(page, size);
+            return yield this.daoPatient.list(page, size);
         });
     }
     /**  FIND PATIENT  **/
@@ -82,12 +87,12 @@ class PatientService {
         return __awaiter(this, void 0, void 0, function* () {
             const parsedDNI = parseInt(dni).toString();
             if (isNaN(parseInt(dni)) || parsedDNI.length < 7 || parsedDNI.length > 8)
-                return "INVALID_DNI";
-            const patient = yield daoPatient.findUserByDNI(dni);
+                throw new Error("INVALID_DNI");
+            const patient = yield this.daoPatient.findUserByDNI(dni);
             if (!patient)
-                return "PATIENT_NOT_FOUND";
+                throw new Error("PATIENT_NOT_FOUND");
             if (!patient.patient)
-                return "USER_IS_NOT_PATIENT";
+                throw new Error("USER_IS_NOT_PATIENT");
             return patient;
         });
     }
@@ -95,33 +100,33 @@ class PatientService {
     updatePD(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!(0, uuid_1.validate)(id))
-                return "INVALID_ID";
-            const patient = yield daoPatient.findByID(id);
+                throw new Error("INVALID_ID");
+            const patient = yield this.daoPatient.findByID(id);
             if (!patient)
-                return "PATIENT_NOT_FOUND";
-            return yield daoPatient.updateUser(patient.user.id, data);
+                throw new Error("PATIENT_NOT_FOUND");
+            return yield this.daoPatient.updateUser(patient.user.id, data);
         });
     }
     /**  UPDATE SOCIAL NUMBER  **/
     updateSN(id, social_number) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!(0, uuid_1.validate)(id))
-                return "INVALID_ID";
-            const patient = yield daoPatient.findByID(id);
+                throw new Error("INVALID_ID");
+            const patient = yield this.daoPatient.findByID(id);
             if (!patient)
-                return "PATIENT_NOT_FOUND";
-            return yield daoPatient.updateSN(id, social_number);
+                throw new Error("PATIENT_NOT_FOUND");
+            return yield this.daoPatient.updateSN(id, social_number);
         });
     }
     /**  UPDATE MAIL  **/
     changeMail(id, mail) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!(0, uuid_1.validate)(id))
-                return "INVALID_ID";
-            const patient = yield daoPatient.findByID(id);
+                throw new Error("INVALID_ID");
+            const patient = yield this.daoPatient.findByID(id);
             if (!patient)
-                return "PATIENT_NOT_FOUND";
-            return yield daoPatient.changeMail(patient.id_user, mail);
+                throw new Error("PATIENT_NOT_FOUND");
+            return yield this.daoPatient.changeMail(patient.id_user, mail);
         });
     }
 }

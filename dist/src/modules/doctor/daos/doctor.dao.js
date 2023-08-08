@@ -122,7 +122,7 @@ class DoctorDao extends user_dao_1.UserDao {
                     where: { id_doctor: data.id_doctor, id_day: data.id_day },
                 });
                 if (check)
-                    return "SCHEDULE_ALREADY_EXISTS";
+                    throw new Error("SCHEDULE_ALREADY_EXISTS");
                 return yield schedules_model_1.default.create(data);
             }
             catch (e) {
@@ -142,7 +142,7 @@ class DoctorDao extends user_dao_1.UserDao {
                     where: { id_doctor: data.id_doctor, id_day: data.id_day },
                 });
                 if (!schedule)
-                    return "SCHEDULE_NOT_FOUND";
+                    throw new Error("SCHEDULE_NOT_FOUND");
                 return yield schedules_model_1.default.update(data, {
                     where: { id: schedule.id },
                 });
@@ -164,7 +164,7 @@ class DoctorDao extends user_dao_1.UserDao {
                     where: { id_doctor, id_day },
                 });
                 if (!schedule)
-                    return "SCHEDULE_NOT_FOUND";
+                    throw new Error("SCHEDULE_NOT_FOUND");
                 return yield schedules_model_1.default.destroy({ where: { id: schedule.id } });
             }
             catch (e) {

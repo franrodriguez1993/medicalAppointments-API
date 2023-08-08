@@ -13,75 +13,95 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const appointment_services_1 = __importDefault(require("./appointment.services"));
-const logger_1 = __importDefault(require("../../utils/logger"));
-const service = new appointment_services_1.default();
+const ResponseEntity_1 = __importDefault(require("../../utils/ResponseEntity"));
 class AppointmentController {
-    /**  CREATE  **/
-    create(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
+    constructor() {
+        /**  CREATE  **/
+        this.create = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const data = req.body;
-                const resService = yield service.create(data);
-                if (resService === "DAY_NOT_FOUND" ||
-                    resService === "DOCTOR_NOT_FOUND" ||
-                    resService === "PATIENT_NOT_FOUND" ||
-                    resService === "STAFF_NOT_FOUND")
-                    return res.status(404).json({ status: 404, msg: resService });
-                else if (resService === "APPOINTMENT_ALREADY_EXISTS" ||
-                    resService === "INVALID ID" ||
-                    resService === "INVALID_DOCTOR_SCHEDULE" ||
-                    resService === "MAXIMUM_APPOINTMENTS")
-                    return res.status(400).json({ status: 400, msg: resService });
-                else
-                    return res.status(201).json({
-                        status: 201,
-                        msg: "APPOINTMENT_CREATED",
-                        data: resService.id,
-                    });
+                const resService = yield this.service.create(data);
+                return res
+                    .status(201)
+                    .json(new ResponseEntity_1.default(201, "APPOINTMENT_CREATED", resService.id));
             }
             catch (e) {
-                logger_1.default.error(e);
-                return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+                if (e instanceof Error) {
+                    switch (e.message) {
+                        case "DAY_NOT_FOUND":
+                        case "DOCTOR_NOT_FOUND":
+                        case "PATIENT_NOT_FOUND":
+                        case "STAFF_NOT_FOUND":
+                            return res
+                                .status(404)
+                                .json(new ResponseEntity_1.default(404, e.message, null));
+                        case "APPOINTMENT_ALREADY_EXISTS":
+                        case "INVALID ID":
+                        case "INVALID_DOCTOR_SCHEDULE":
+                        case "MAXIMUM_APPOINTMENTS":
+                            return res
+                                .status(400)
+                                .json(new ResponseEntity_1.default(400, e.message, null));
+                        default:
+                            return res
+                                .status(500)
+                                .json(new ResponseEntity_1.default(500, "SERVER_ERROR", null));
+                    }
+                }
             }
         });
-    }
-    /**  LIST APPOINTMENT  **/
-    listAppointment(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
+        /**  LIST APPOINTMENT  **/
+        this.listAppointment = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
                 const { date } = req.query;
-                const resService = yield service.listAppointment(id, date.toString());
-                if (resService === "INVALID_ID")
-                    return res.status(400).json({ status: 400, msg: resService });
-                else if (resService === "DOCTOR_NOT_FOUND")
-                    return res.status(404).json({ status: 404, msg: resService });
-                return res.status(200).json({ status: 200, msg: "OK", data: resService });
+                const resService = yield this.service.listAppointment(id, date.toString());
+                return res.status(200).json(new ResponseEntity_1.default(200, "OK", resService));
             }
             catch (e) {
-                logger_1.default.error(e);
-                return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+                if (e instanceof Error) {
+                    switch (e.message) {
+                        case "INVALID_ID":
+                            return res
+                                .status(400)
+                                .json(new ResponseEntity_1.default(400, e.message, null));
+                        case "DOCTOR_NOT_FOUND":
+                            return res
+                                .status(404)
+                                .json(new ResponseEntity_1.default(404, e.message, null));
+                        default:
+                            return res
+                                .status(500)
+                                .json(new ResponseEntity_1.default(500, "SERVER_ERROR", null));
+                    }
+                }
             }
         });
-    }
-    /**   DELETE APPOINTMENT **/
-    deleteOne(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
+        /**   DELETE APPOINTMENT **/
+        this.deleteOne = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                const resService = yield service.deleteOne(id);
-                if (resService === "INVALID_ID")
-                    return res.status(400).json({ status: 400, msg: resService });
-                else
-                    return res
-                        .status(200)
-                        .json({ status: 200, msg: "APPOINTMENT_DELETED" });
+                yield this.service.deleteOne(id);
+                return res
+                    .status(200)
+                    .json(new ResponseEntity_1.default(200, "APPOINTMENT_DELETED", null));
             }
             catch (e) {
-                logger_1.default.error(e);
-                return res.status(500).json({ status: 500, msg: "SERVER_ERROR" });
+                if (e instanceof Error) {
+                    switch (e.message) {
+                        case "INVALID_ID":
+                            return res
+                                .status(400)
+                                .json(new ResponseEntity_1.default(400, e.message, null));
+                        default:
+                            return res
+                                .status(500)
+                                .json(new ResponseEntity_1.default(500, "SERVER_ERROR", null));
+                    }
+                }
             }
         });
+        this.service = new appointment_services_1.default();
     }
 }
 exports.default = AppointmentController;

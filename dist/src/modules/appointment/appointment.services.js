@@ -19,63 +19,65 @@ const doctor_dao_1 = __importDefault(require("../doctor/daos/doctor.dao"));
 const staff_dao_1 = __importDefault(require("../staff/staff.dao"));
 const patient_dao_1 = __importDefault(require("../patient/patient.dao"));
 const day_dao_1 = __importDefault(require("../doctor/daos/day.dao"));
-const daoAppointment = new appointment_dao_1.default();
-const daoStaff = new staff_dao_1.default();
-const daoPatient = new patient_dao_1.default();
-const daoDoctor = new doctor_dao_1.default();
-const daoDay = new day_dao_1.default();
 class AppointmentService {
+    constructor() {
+        this.daoAppointment = new appointment_dao_1.default();
+        this.daoStaff = new staff_dao_1.default();
+        this.daoPatient = new patient_dao_1.default();
+        this.daoDoctor = new doctor_dao_1.default();
+        this.daoDay = new day_dao_1.default();
+    }
     /**   CREATE **/
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!(0, uuid_1.validate)(data.id_doctor) ||
                 !(0, uuid_1.validate)(data.id_patient) ||
                 !(0, uuid_1.validate)(data.id_staff)) {
-                return "INVALID ID";
+                throw new Error("INVALID ID");
             }
             //Find users:
-            const staff = yield daoStaff.findByID(data.id_staff);
+            const staff = yield this.daoStaff.findByID(data.id_staff);
             if (!staff)
-                return "STAFF_NOT_FOUND";
-            const patient = yield daoPatient.findByID(data.id_patient);
+                throw new Error("STAFF_NOT_FOUND");
+            const patient = yield this.daoPatient.findByID(data.id_patient);
             if (!patient)
-                return "PATIENT_NOT_FOUND";
-            const doctor = yield daoDoctor.findByID(data.id_doctor);
+                throw new Error("PATIENT_NOT_FOUND");
+            const doctor = yield this.daoDoctor.findByID(data.id_doctor);
             if (!doctor)
-                return "DOCTOR_NOT_FOUND";
-            const day = yield daoDay.findByID(data.id_day);
+                throw new Error("DOCTOR_NOT_FOUND");
+            const day = yield this.daoDay.findByID(data.id_day);
             if (!day)
-                return "DAY_NOT_FOUND";
+                throw new Error("DAY_NOT_FOUND");
             //Check Schedule:
             const checkDay = doctor.schedules.find((s) => s.id_day === data.id_day);
             if (!checkDay)
-                return "INVALID_DOCTOR_SCHEDULE";
+                throw new Error("INVALID_DOCTOR_SCHEDULE");
             //Check appointments:
-            const listAppointments = yield daoAppointment.listDayAppointment(data.id_doctor, data.date);
+            const listAppointments = yield this.daoAppointment.listDayAppointment(data.id_doctor, data.date);
             if (listAppointments.length >= 10)
-                return "MAXIMUM_APPOINTMENTS";
+                throw new Error("MAXIMUM_APPOINTMENTS");
             //If everything is ok:
-            return yield daoAppointment.create(Object.assign(Object.assign({}, data), { id: `${(0, uuid_1.v4)()}` }));
+            return yield this.daoAppointment.create(Object.assign(Object.assign({}, data), { id: `${(0, uuid_1.v4)()}` }));
         });
     }
     /**   LIST APPOINTMENT **/
     listAppointment(id_doctor, date) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!(0, uuid_1.validate)(id_doctor))
-                return "INVALID_ID";
+                throw new Error("INVALID_ID");
             const formatedDate = date.split("-").join("/");
-            const doctor = yield daoDoctor.findByID(id_doctor);
+            const doctor = yield this.daoDoctor.findByID(id_doctor);
             if (!doctor)
-                return "DOCTOR_NOT_FOUND";
-            return yield daoAppointment.listDayAppointment(id_doctor, formatedDate);
+                throw new Error("DOCTOR_NOT_FOUND");
+            return yield this.daoAppointment.listDayAppointment(id_doctor, formatedDate);
         });
     }
     /**   DELETE APPOINTMENT **/
     deleteOne(id) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!(0, uuid_1.validate)(id))
-                return "INVALID_ID";
-            return yield daoAppointment.deleteOne(id);
+                throw new Error("INVALID_ID");
+            return yield this.daoAppointment.deleteOne(id);
         });
     }
 }

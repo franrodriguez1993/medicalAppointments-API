@@ -14,24 +14,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
 const specialty_dao_1 = __importDefault(require("../daos/specialty.dao"));
-const daoSpecialty = new specialty_dao_1.default();
 class SpecialtyService {
+    constructor() {
+        this.daoSpecialty = new specialty_dao_1.default();
+    }
     /**  CREATE SPECIALTY  **/
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const checkName = yield daoSpecialty.findByName(data.name);
+            const checkName = yield this.daoSpecialty.findByName(data.name);
             if (checkName)
-                return "SPECIALTY_ALREADY_CREATED";
+                throw new Error("SPECIALTY_ALREADY_CREATED");
             const id = (0, uuid_1.v4)();
-            return yield daoSpecialty.create(Object.assign(Object.assign({}, data), { id }));
+            return yield this.daoSpecialty.create(Object.assign(Object.assign({}, data), { id }));
         });
     }
     /**  DELETE SPECIALTY  **/
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!(0, uuid_1.validate)(id))
-                return "INVALID_ID";
-            return yield daoSpecialty.delete(id);
+                throw new Error("INVALID_ID");
+            return yield this.daoSpecialty.delete(id);
         });
     }
 }

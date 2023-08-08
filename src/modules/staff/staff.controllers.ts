@@ -1,17 +1,19 @@
 import { Request, Response } from "express";
 import StaffService from "./staff.services";
-import logger from "../../utils/logger";
 import ResponseEntity from "../../utils/ResponseEntity";
 
-const service = new StaffService();
-
 export default class StaffController {
+  private service: StaffService;
+
+  constructor() {
+    this.service = new StaffService();
+  }
+
   /**  REGISTER  **/
-  async register(req: Request, res: Response) {
+  register = async (req: Request, res: Response) => {
     try {
       const data = req.body;
-
-      const resService = await service.register(data);
+      const resService = await this.service.register(data);
       return res
         .status(201)
         .json(new ResponseEntity(201, "STAFF_REGISTERED", resService));
@@ -37,15 +39,15 @@ export default class StaffController {
         }
       }
     }
-  }
+  };
 
   /**  LOGIN  **/
 
-  async login(req: Request, res: Response) {
+  login = async (req: Request, res: Response) => {
     try {
       const { username, password } = req.body;
 
-      const resService = await service.login(username, password);
+      const resService = await this.service.login(username, password);
 
       return res
         .status(200)
@@ -64,15 +66,15 @@ export default class StaffController {
         }
       }
     }
-  }
+  };
 
   /** LIST **/
-  async list(req: Request, res: Response) {
+  list = async (req: Request, res: Response) => {
     try {
       const page: number = parseInt(req.query.page as string);
       const size: number = parseInt(req.query.page as string);
 
-      const resService = await service.list(page, size);
+      const resService = await this.service.list(page, size);
 
       return res.status(200).json(new ResponseEntity(200, "OK", resService));
     } catch (e: unknown) {
@@ -80,16 +82,16 @@ export default class StaffController {
         .status(500)
         .json(new ResponseEntity(200, "SERVER_ERROR", null));
     }
-  }
+  };
 
   /**  UPDATE PERSONAL DATA  **/
 
-  async updatePersonalData(req: Request, res: Response) {
+  updatePersonalData = async (req: Request, res: Response) => {
     try {
       const data = req.body;
       const { id } = req.params;
 
-      await service.updatePersonalData(id, data);
+      await this.service.updatePersonalData(id, data);
 
       return res.status(201).json(new ResponseEntity(201, "STAFF_UPDATED", id));
     } catch (e: unknown) {
@@ -110,15 +112,15 @@ export default class StaffController {
         }
       }
     }
-  }
+  };
 
   /** CHANGE MAIL  **/
-  async changeMail(req: Request, res: Response) {
+  changeMail = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const { mail } = req.body;
 
-      const resService = await service.changeMail(id, mail);
+      const resService = await this.service.changeMail(id, mail);
 
       return res
         .status(200)
@@ -143,15 +145,15 @@ export default class StaffController {
         }
       }
     }
-  }
+  };
 
   /** CHANGE USERNAME  **/
-  async changeUsername(req: Request, res: Response) {
+  changeUsername = async (req: Request, res: Response) => {
     try {
       const { username } = req.body;
       const { id } = req.params;
 
-      const resService = await service.changeUsername(id, username);
+      const resService = await this.service.changeUsername(id, username);
 
       return res
         .status(200)
@@ -176,15 +178,15 @@ export default class StaffController {
         }
       }
     }
-  }
+  };
 
   /** CHANGE PASSWORD  **/
-  async changePassword(req: Request, res: Response) {
+  changePassword = async (req: Request, res: Response) => {
     try {
       const { password } = req.body;
       const { id } = req.params;
 
-      await service.changePassword(id, password);
+      await this.service.changePassword(id, password);
 
       return res
         .status(200)
@@ -193,6 +195,7 @@ export default class StaffController {
       if (e instanceof Error) {
         switch (e.message) {
           case "INVALID_ID":
+          case "PASSWORD_IS_THE_SAME":
             return res
               .status(400)
               .json(new ResponseEntity(400, e.message, null));
@@ -207,14 +210,14 @@ export default class StaffController {
         }
       }
     }
-  }
+  };
 
   /** FIND BY ID  **/
-  async findByID(req: Request, res: Response) {
+  findByID = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
 
-      const resService = await service.findByID(id);
+      const resService = await this.service.findByID(id);
 
       return res.status(200).json(new ResponseEntity(200, "OK", resService));
     } catch (e: unknown) {
@@ -235,15 +238,15 @@ export default class StaffController {
         }
       }
     }
-  }
+  };
 
   /** UPDATE SALARY  **/
-  async updateSalary(req: Request, res: Response) {
+  updateSalary = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const { salary } = req.body;
 
-      const resService = await service.updateSalary(id, salary);
+      const resService = await this.service.updateSalary(id, salary);
 
       return res
         .status(200)
@@ -266,15 +269,15 @@ export default class StaffController {
         }
       }
     }
-  }
+  };
 
   /** UPDATE STATUS  **/
-  async updateStatus(req: Request, res: Response) {
+  updateStatus = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const { status } = req.body;
 
-      const resService = await service.updateStatus(id, status);
+      const resService = await this.service.updateStatus(id, status);
 
       return res
         .status(200)
@@ -298,5 +301,5 @@ export default class StaffController {
         }
       }
     }
-  }
+  };
 }

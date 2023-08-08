@@ -476,3 +476,100 @@
 [2023-07-25T10:39:53.909] [INFO] default - Running in Production mode
 [2023-07-27T10:36:56.080] [INFO] default - Running in development mode http://localhost:5000
 [2023-07-27T10:42:15.830] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-01T10:39:33.401] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-01T10:44:17.049] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-01T10:45:26.087] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-01T10:48:55.085] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-01T10:50:50.971] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-01T10:57:50.086] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-01T10:59:24.951] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:31:22.348] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:33:33.105] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:35:28.155] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:37:54.289] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:44:07.405] [INFO] default - Running in Production mode
+[2023-08-02T10:45:53.670] [INFO] default - Running in Production mode
+[2023-08-02T10:47:04.270] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:47:59.131] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:49:08.571] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:49:21.652] [ERROR] default - llave duplicada viola restricción de unicidad «patients_social_number_key41»
+[2023-08-02T10:52:13.812] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:52:16.570] [ERROR] default - SOCIAL_NUMBER_IN_USE
+[2023-08-02T10:53:06.873] [INFO] default - Running in Production mode
+[2023-08-02T10:53:09.333] [ERROR] default - SOCIAL_NUMBER_IN_USE
+[2023-08-02T10:53:34.595] [ERROR] default - SOCIAL_NUMBER_IN_USE
+[2023-08-02T10:53:34.873] [ERROR] default - MAIL_IN_USE
+[2023-08-02T10:55:21.989] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:55:29.911] [ERROR] default - PATIENT_ALREADY_EXISTS
+[2023-08-02T10:57:02.015] [INFO] default - Running in Production mode
+[2023-08-02T10:57:08.646] [ERROR] default - PATIENT_ALREADY_EXISTS
+[2023-08-02T10:57:57.187] [ERROR] default - PATIENT_ALREADY_EXISTS
+[2023-08-02T10:57:57.636] [ERROR] default - SOCIAL_NUMBER_IN_USE
+[2023-08-02T10:57:57.715] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-02T10:57:57.922] [ERROR] default - MAIL_IN_USE
+[2023-08-07T08:37:33.646] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T08:38:03.852] [ERROR] default - PATIENT_ALREADY_EXISTS
+[2023-08-07T08:38:04.339] [ERROR] default - MAIL_IN_USE
+[2023-08-07T08:38:59.569] [ERROR] default - PATIENT_ALREADY_EXISTS
+[2023-08-07T08:38:59.961] [ERROR] default - SOCIAL_NUMBER_IN_USE
+[2023-08-07T08:39:00.002] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T08:39:00.241] [ERROR] default - MAIL_IN_USE
+[2023-08-07T08:39:16.475] [ERROR] default - PATIENT_ALREADY_EXISTS
+[2023-08-07T08:39:16.912] [ERROR] default - SOCIAL_NUMBER_IN_USE
+[2023-08-07T08:39:16.990] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T08:39:17.205] [ERROR] default - MAIL_IN_USE
+[2023-08-07T08:39:37.959] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T08:40:08.362] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T08:43:23.695] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T08:46:55.189] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T08:47:55.659] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T08:50:25.733] [INFO] default - Running in Production mode
+[2023-08-07T08:51:14.614] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T08:56:00.137] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T08:57:09.642] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:05:30.563] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:11:37.787] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:16:38.063] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:18:31.006] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:23:40.190] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:24:03.608] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:32:23.697] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:35:09.777] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:36:04.513] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:36:28.657] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:38:01.593] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:39:04.409] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:43:27.669] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:48:53.266] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:50:00.566] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:51:09.044] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:52:00.171] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:56:54.757] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T09:57:48.292] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T10:00:11.389] [ERROR] default - PATIENT_ALREADY_EXISTS
+[2023-08-07T10:00:11.758] [ERROR] default - SOCIAL_NUMBER_IN_USE
+[2023-08-07T10:00:11.872] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T10:00:12.054] [ERROR] default - MAIL_IN_USE
+[2023-08-07T10:02:40.095] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:40.435] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:40.474] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:40.811] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:40.863] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:41.098] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:41.133] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:41.264] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T10:02:41.343] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:41.934] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:42.342] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:42.928] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:43.137] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:43.345] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:02:43.373] [ERROR] default - Cannot read properties of undefined (reading 'service')
+[2023-08-07T10:04:14.713] [ERROR] default - PATIENT_ALREADY_EXISTS
+[2023-08-07T10:04:15.096] [ERROR] default - SOCIAL_NUMBER_IN_USE
+[2023-08-07T10:04:15.172] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T10:04:15.398] [ERROR] default - MAIL_IN_USE
+[2023-08-07T10:15:22.811] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-07T10:17:16.937] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-08T08:46:48.303] [INFO] default - Running in development mode http://localhost:5000
+[2023-08-08T08:49:12.472] [INFO] default - Running in development mode http://localhost:5000

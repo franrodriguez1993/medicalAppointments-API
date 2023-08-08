@@ -125,15 +125,26 @@ describe("Login test", () => {
 describe("update personal data test", () => {
     test("updated successfully", () => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
-        const response = yield staff_helpers_1.api.put(`/api/v1/staff/${user.id}/personal`).send({
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
+        const response = yield staff_helpers_1.api
+            .put(`/api/v1/staff/${user.id}/personal`)
+            .send({
             name: "jonathan",
             lastname: "jones",
             cellphone: "145289653",
             birthday: "1985/10/5",
-        });
+        })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("STAFF_UPDATED");
     }));
     test("Invalid id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/dasdadjaj1231saa1/personal`)
             .send({
@@ -141,10 +152,15 @@ describe("update personal data test", () => {
             lastname: "jones",
             cellphone: "145289653",
             birthday: "1985/10/5",
-        });
+        })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_ID");
     }));
     test("staff not found", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff_helpers_1.staffListMock[0].id}/personal`)
             .send({
@@ -152,180 +168,311 @@ describe("update personal data test", () => {
             lastname: "jones",
             cellphone: "145289653",
             birthday: "1985/10/5",
-        });
+        })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("STAFF_NOT_FOUND");
     }));
 });
 describe("change mail", () => {
     test("updated successfully", () => __awaiter(void 0, void 0, void 0, function* () {
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/mail`)
-            .send({ mail: "jonathanlamas@gmail.com" });
+            .send({ mail: "jonathanlamas@gmail.com" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("MAIL_UPDATED");
     }));
     test("invalid id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/128312319991/mail`)
-            .send({ mail: "jonathanlamas@gmail.com" });
+            .send({ mail: "jonathanlamas@gmail.com" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_ID");
     }));
     test("staff not found", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff_helpers_1.staffListMock[0].id}/mail`)
-            .send({ mail: "jonathanlamas@gmail.com" });
+            .send({ mail: "jonathanlamas@gmail.com" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("STAFF_NOT_FOUND");
     }));
     test("mail is the same", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/mail`)
-            .send({ mail: staff_helpers_1.staffListMock[0].mail });
+            .send({ mail: staff_helpers_1.staffListMock[0].mail })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("MAIL_IS_THE_SAME");
     }));
     test("invalid mail", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/mail`)
-            .send({ mail: "juan carlos" });
+            .send({ mail: "juan carlos" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
     }));
 });
 describe("change username", () => {
     test("username updated", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/username`)
-            .send({ username: "juancarlos20" });
+            .send({ username: "juancarlos20" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("USERNAME_UPDATED");
     }));
     test("username is the same", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/username`)
-            .send({ username: staff.username });
+            .send({ username: staff.username })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("USERNAME_IS_THE_SAME");
     }));
     test("username already in use", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/username`)
-            .send({ username: staff_helpers_1.staffListMock[1].username });
+            .send({ username: staff_helpers_1.staffListMock[1].username })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("USERNAME_ALREADY_IN_USE");
     }));
     test("username is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/username`)
-            .send({ username: "a" });
+            .send({ username: "a" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
     }));
     test("username is too long", () => __awaiter(void 0, void 0, void 0, function* () {
-        const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
-        const response = yield staff_helpers_1.api.put(`/api/v1/staff/${staff.id}/username`).send({
-            username: "abcdeiiiqqiqiqiqiqqedkjasdkjasdkjaskdjaskdajskdajsdkajdkasjdasqweqweqw",
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
         });
+        const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
+        const response = yield staff_helpers_1.api
+            .put(`/api/v1/staff/${staff.id}/username`)
+            .send({
+            username: "abcdeiiiqqiqiqiqiqqedkjasdkjasdkjaskdjaskdajskdajsdkajdkasjdasqweqweqw",
+        })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
     }));
 });
 describe("change password", () => {
     test("password updated", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/password`)
-            .send({ password: "kukukuku" });
+            .send({ password: "kukukuku" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("PASSWORD_UPDATED");
     }));
     test("password is the same", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/password`)
-            .send({ password: "147258" });
+            .send({ password: staff_helpers_1.staffListMock[0].password })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("PASSWORD_IS_THE_SAME");
     }));
     test("password is too short", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/password`)
-            .send({ password: "11" });
+            .send({ password: "11" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
     }));
     test("password is too long", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/password`)
-            .send({ password: "11asdasdasdasdasdqj4e2131231231231sdfdsfbpoil567" });
+            .send({ password: "11asdasdasdasdasdqj4e2131231231231sdfdsfbpoil567" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
     }));
 });
 describe("find by id", () => {
     test("find by id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
-        const response = yield staff_helpers_1.api.get(`/api/v1/staff/${staff.id}`);
+        const response = yield staff_helpers_1.api
+            .get(`/api/v1/staff/${staff.id}`)
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("OK");
     }));
     test("invalid id", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield staff_helpers_1.api.get(`/api/v1/staff/234234234dfaa1`);
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
+        const response = yield staff_helpers_1.api
+            .get(`/api/v1/staff/234234234dfaa1`)
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_ID");
     }));
     test("staff not found", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield staff_helpers_1.api.get(`/api/v1/staff/${staff_helpers_1.staffListMock[0].id}`);
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
+        const response = yield staff_helpers_1.api
+            .get(`/api/v1/staff/${staff_helpers_1.staffListMock[0].id}`)
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("STAFF_NOT_FOUND");
     }));
 });
 describe("update salary", () => {
     test("updated successfully", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/salary`)
-            .send({ salary: 5000 });
+            .send({ salary: 5000 })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("SALARY_UPDATED");
     }));
     test("user not found", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff_helpers_1.staffListMock[0].id}/salary`)
-            .send({ salary: 5000 });
+            .send({ salary: 5000 })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("STAFF_NOT_FOUND");
     }));
     test("invalid id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/12312312/salary`)
-            .send({ salary: 5000 });
+            .send({ salary: 5000 })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_ID");
     }));
     test("invalid amount", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/salary`)
-            .send({ salary: 50000000 });
+            .send({ salary: 50000000 })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_BODY_REQUEST");
     }));
 });
 describe("update status", () => {
     test("status updated", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/status`)
-            .send({ status: "suspended" });
+            .send({ status: "suspended" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("STATUS_UPDATED");
     }));
     test("invalid status", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const staff = yield staff_helpers_1.daoStaff.findByUsername(staff_helpers_1.staffListMock[0].username);
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff.id}/status`)
-            .send({ status: "vacationnnn" });
+            .send({ status: "vacationnnn" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_STATUS");
     }));
     test("invalid id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/231ddddd/status`)
-            .send({ status: "vacation" });
+            .send({ status: "vacation" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("INVALID_ID");
     }));
     test("staff not found", () => __awaiter(void 0, void 0, void 0, function* () {
+        const login = yield staff_helpers_1.api.post("/api/v1/staff/login").send({
+            username: staff_helpers_1.staffListMock[0].username,
+            password: staff_helpers_1.staffListMock[0].password,
+        });
         const response = yield staff_helpers_1.api
             .put(`/api/v1/staff/${staff_helpers_1.staffListMock[0].id}/status`)
-            .send({ status: "vacation" });
+            .send({ status: "vacation" })
+            .set("Authorization", `Bearer ${login.body.data.jwt}`);
         expect(response.body.msg).toEqual("STAFF_NOT_FOUND");
     }));
 });

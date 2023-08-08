@@ -13,13 +13,21 @@ import { patientOIF } from "../../interfaces/patient/patient.interface";
 import { doctorOIF } from "../../interfaces/doctor/doctor.interface";
 import { dayOIF } from "../../interfaces/doctor/day.interface";
 
-const daoAppointment = new AppointmentDao();
-const daoStaff = new StaffDao();
-const daoPatient = new PatientDao();
-const daoDoctor = new DoctorDao();
-const daoDay = new DayDao();
-
 export default class AppointmentService {
+  private daoAppointment: AppointmentDao;
+  private daoStaff: StaffDao;
+  private daoPatient: PatientDao;
+  private daoDoctor: DoctorDao;
+  private daoDay: DayDao;
+
+  constructor() {
+    this.daoAppointment = new AppointmentDao();
+    this.daoStaff = new StaffDao();
+    this.daoPatient = new PatientDao();
+    this.daoDoctor = new DoctorDao();
+    this.daoDay = new DayDao();
+  }
+
   /**   CREATE **/
   async create(data: appointmentBIF) {
     if (
@@ -31,16 +39,16 @@ export default class AppointmentService {
     }
 
     //Find users:
-    const staff: staffOIF = await daoStaff.findByID(data.id_staff);
+    const staff: staffOIF = await this.daoStaff.findByID(data.id_staff);
     if (!staff) throw new Error("STAFF_NOT_FOUND");
 
-    const patient: patientOIF = await daoPatient.findByID(data.id_patient);
+    const patient: patientOIF = await this.daoPatient.findByID(data.id_patient);
     if (!patient) throw new Error("PATIENT_NOT_FOUND");
 
-    const doctor: doctorOIF = await daoDoctor.findByID(data.id_doctor);
+    const doctor: doctorOIF = await this.daoDoctor.findByID(data.id_doctor);
     if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
 
-    const day: dayOIF = await daoDay.findByID(data.id_day);
+    const day: dayOIF = await this.daoDay.findByID(data.id_day);
     if (!day) throw new Error("DAY_NOT_FOUND");
 
     //Check Schedule:
@@ -48,14 +56,14 @@ export default class AppointmentService {
     if (!checkDay) throw new Error("INVALID_DOCTOR_SCHEDULE");
 
     //Check appointments:
-    const listAppointments = await daoAppointment.listDayAppointment(
+    const listAppointments = await this.daoAppointment.listDayAppointment(
       data.id_doctor,
       data.date
     );
     if (listAppointments.length >= 10) throw new Error("MAXIMUM_APPOINTMENTS");
 
     //If everything is ok:
-    return await daoAppointment.create({ ...data, id: `${uuid()}` });
+    return await this.daoAppointment.create({ ...data, id: `${uuid()}` });
   }
 
   /**   LIST APPOINTMENT **/
@@ -63,15 +71,18 @@ export default class AppointmentService {
     if (!isValidUuid(id_doctor)) throw new Error("INVALID_ID");
     const formatedDate = date.split("-").join("/");
 
-    const doctor: doctorOIF = await daoDoctor.findByID(id_doctor);
+    const doctor: doctorOIF = await this.daoDoctor.findByID(id_doctor);
     if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
 
-    return await daoAppointment.listDayAppointment(id_doctor, formatedDate);
+    return await this.daoAppointment.listDayAppointment(
+      id_doctor,
+      formatedDate
+    );
   }
 
   /**   DELETE APPOINTMENT **/
   async deleteOne(id: string) {
     if (!isValidUuid(id)) throw new Error("INVALID_ID");
-    return await daoAppointment.deleteOne(id);
+    return await this.daoAppointment.deleteOne(id);
   }
 }

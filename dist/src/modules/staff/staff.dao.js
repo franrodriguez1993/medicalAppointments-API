@@ -47,7 +47,7 @@ class StaffDao extends user_dao_1.UserDao {
                 const user = yield staff_model_1.default.findOne({ where: { username } });
                 const checkPass = yield (0, bcryptHandler_1.verifyEncrypt)(password, user.password);
                 if (!checkPass)
-                    return "INVALID_CREDENTIALS";
+                    throw new Error("INVALID_CREDENTIALS");
                 const jwt = (0, jwtHandler_1.generateToken)(user.id);
                 return { uid: user.id, jwt };
             }
@@ -151,7 +151,7 @@ class StaffDao extends user_dao_1.UserDao {
                 const staff = yield staff_model_1.default.findOne({ where: { id } });
                 const checkPass = yield (0, bcryptHandler_1.verifyEncrypt)(password, staff.password);
                 if (checkPass)
-                    return "PASSWORD_IS_THE_SAME";
+                    throw new Error("PASSWORD_IS_THE_SAME");
                 const hashPass = yield (0, bcryptHandler_1.encrypt)(password);
                 return yield staff_model_1.default.update({ password: hashPass }, { where: { id } });
             }

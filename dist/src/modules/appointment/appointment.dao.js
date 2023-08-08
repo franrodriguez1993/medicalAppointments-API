@@ -29,7 +29,7 @@ class AppointmentDao {
                     },
                 });
                 if (appointment)
-                    return "APPOINTMENT_ALREADY_EXISTS";
+                    throw new Error("APPOINTMENT_ALREADY_EXISTS");
                 return yield appointment_model_1.default.create(data);
             }
             catch (e) {

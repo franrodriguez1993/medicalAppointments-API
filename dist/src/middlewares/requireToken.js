@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.requireToken = void 0;
 const jwtHandler_1 = require("../utils/jwtHandler");
 const staff_dao_1 = __importDefault(require("../modules/staff/staff.dao"));
-const logger_1 = __importDefault(require("../utils/logger"));
+const ResponseEntity_1 = __importDefault(require("../utils/ResponseEntity"));
 const daoStaff = new staff_dao_1.default();
 function requireToken(req, res, next) {
     var _a;
@@ -23,24 +23,38 @@ function requireToken(req, res, next) {
         try {
             let token = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization;
             if (!token)
-                return res.status(401).json({ status: 401, msg: "TOKEN_REQUIRED" });
+                return res
+                    .status(401)
+                    .json(new ResponseEntity_1.default(401, "TOKEN_REQUIRED", null));
             token = token.split(" ")[1];
             const checkToken = (0, jwtHandler_1.verifyToken)(token);
             const staff = yield daoStaff.findByID(checkToken.uid);
             if (!staff)
-                return res.status(404).json({ status: 404, msg: "STAFF_NOT_FOUND" });
+                return res
+                    .status(404)
+                    .json(new ResponseEntity_1.default(404, "STAFF_NOT_FOUND", null));
             next();
         }
         catch (e) {
-            if (e.message === "invalid signature")
-                return res.json({ status: 403, message: "INVALID_SIGNATURE" });
-            else if (e.message === "jwt expired")
-                return res.json({ status: 403, message: "JWT_EXPIRED" });
-            else if (e.message === "invalid token")
-                return res.json({ status: 403, message: "INVALID_TOKEN" });
-            else {
-                logger_1.default.error(e.message);
-                return res.json({ status: 500, message: "INTERNAL_SERVER_ERROR" });
+            if (e instanceof Error) {
+                switch (e.message) {
+                    case "invalid signature":
+                        return res
+                            .status(403)
+                            .json(new ResponseEntity_1.default(403, "INVALID_SIGNATURE", null));
+                    case "jwt expired":
+                        return res
+                            .status(403)
+                            .json(new ResponseEntity_1.default(403, "JWT_EXPIRED", null));
+                    case "invalid token":
+                        return res
+                            .status(403)
+                            .json(new ResponseEntity_1.default(403, "INVALID_TOKEN", null));
+                    default:
+                        res
+                            .status(500)
+                            .json(new ResponseEntity_1.default(500, "INTERNAL_SERVER_ERROR", null));
+                }
             }
         }
     });

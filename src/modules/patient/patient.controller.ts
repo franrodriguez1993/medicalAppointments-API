@@ -1,23 +1,28 @@
 import { Request, Response } from "express";
 import PatientService from "./patient.services";
-import logger from "../../utils/logger";
 import ResponseEntity from "../../utils/ResponseEntity";
-
-const service = new PatientService();
+import logger from "../../utils/logger";
 
 export default class PatientController {
+  private service: PatientService;
+
+  constructor() {
+    this.service = new PatientService();
+  }
+
   /**  CREATE  **/
-  async create(req: Request, res: Response) {
+  create = async (req: Request, res: Response) => {
     try {
       const data = req.body;
 
-      const resService = await service.create(data);
+      const resService = await this.service.create(data);
 
       return res
         .status(201)
         .json({ status: 201, msg: "PATIENT_CREATED", data: resService });
     } catch (e: unknown) {
       if (e instanceof Error) {
+        logger.error(e.message);
         switch (e.message) {
           case "PATIENT_ALREADY_EXISTS":
           case "USER_REGISTERED_WITH_ANOTHER_MAIL":
@@ -38,15 +43,15 @@ export default class PatientController {
         }
       }
     }
-  }
+  };
 
   /**  LIST PATIENTS  **/
-  async list(req: Request, res: Response) {
+  list = async (req: Request, res: Response) => {
     try {
       const page: number = parseInt(req.query.page as string);
       const size: number = parseInt(req.query.page as string);
 
-      const resService = await service.list(page, size);
+      const resService = await this.service.list(page, size);
 
       return res.status(200).json(new ResponseEntity(200, "OK", resService));
     } catch (e: unknown) {
@@ -54,14 +59,14 @@ export default class PatientController {
         .status(500)
         .json(new ResponseEntity(500, "SERVER_ERROR", null));
     }
-  }
+  };
 
   /**  FIND BY DNI**/
-  async findByDNI(req: Request, res: Response) {
+  findByDNI = async (req: Request, res: Response) => {
     try {
       const { dni } = req.params;
 
-      const resService = await service.findByDNI(dni);
+      const resService = await this.service.findByDNI(dni);
       return res.status(200).json(new ResponseEntity(200, "OK", resService));
     } catch (e: unknown) {
       if (e instanceof Error) {
@@ -83,16 +88,16 @@ export default class PatientController {
         }
       }
     }
-  }
+  };
 
   /**  UPDATE PERSONAL DATA  **/
 
-  async updatePD(req: Request, res: Response) {
+  updatePD = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const data = req.body;
 
-      const resService = await service.updatePD(id, data);
+      const resService = await this.service.updatePD(id, data);
 
       return res
         .status(200)
@@ -115,15 +120,15 @@ export default class PatientController {
         }
       }
     }
-  }
+  };
 
   /**  UPDATE SOCIAL NUMBER  **/
-  async updateSN(req: Request, res: Response) {
+  updateSN = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const { social_number } = req.body;
 
-      const resService = await service.updateSN(id, social_number);
+      const resService = await this.service.updateSN(id, social_number);
 
       return res
         .status(200)
@@ -146,15 +151,15 @@ export default class PatientController {
         }
       }
     }
-  }
+  };
 
   /**  CHANGE MAIL  **/
-  async changeMail(req: Request, res: Response) {
+  changeMail = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const { mail } = req.body;
 
-      const resService = await service.changeMail(id, mail);
+      const resService = await this.service.changeMail(id, mail);
 
       return res
         .status(200)
@@ -179,5 +184,5 @@ export default class PatientController {
         }
       }
     }
-  }
+  };
 }

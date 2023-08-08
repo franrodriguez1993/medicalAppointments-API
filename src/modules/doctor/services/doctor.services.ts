@@ -11,22 +11,27 @@ import { schedulesBIF } from "../../../interfaces/doctor/schedules.interface";
 import DayDao from "../daos/day.dao";
 import { dayOIF } from "../../../interfaces/doctor/day.interface";
 
-const daoDoctor = new DoctorDao();
-
-const daoSpecialty = new SpecialtyDao();
-const daoDay = new DayDao();
-
 export default class DoctorService {
+  private daoDay: DayDao;
+  private daoSpecialty: SpecialtyDao;
+  private daoDoctor: DoctorDao;
+
+  constructor() {
+    this.daoDay = new DayDao();
+    this.daoSpecialty = new SpecialtyDao();
+    this.daoDoctor = new DoctorDao();
+  }
+
   /**  CREATE **/
   async create(data: userDoctorBIF) {
     const id = uuid();
     const id_user = uuid();
     //CHECK USER FOR USER:
-    const user: userOIF = await daoDoctor.findUserByDNI(data.dni);
+    const user: userOIF = await this.daoDoctor.findUserByDNI(data.dni);
 
     //check for specialty:
     if (!isValidUuid(data.id_specialty)) throw new Error("INVALID_ID");
-    const specialty: specialtiesOIF = await daoSpecialty.findByID(
+    const specialty: specialtiesOIF = await this.daoSpecialty.findByID(
       data.id_specialty
     );
     if (!specialty) throw new Error("SPECIALTY_NOT_FOUND");
@@ -37,7 +42,7 @@ export default class DoctorService {
         throw new Error("DOCTOR_ALREADY_REGISTERED");
       } else {
         if (user.mail === data.mail) {
-          const newDoc: doctorOIF = await daoDoctor.create({
+          const newDoc: doctorOIF = await this.daoDoctor.create({
             id,
             id_user: user.id,
             id_specialty: data.id_specialty,
@@ -51,7 +56,7 @@ export default class DoctorService {
     }
 
     //IF USER DOESN'T EXISTS:
-    const newUser: userOIF = await daoDoctor.createUser({
+    const newUser: userOIF = await this.daoDoctor.createUser({
       id: id_user,
       name: data.name,
       lastname: data.lastname,
@@ -63,7 +68,7 @@ export default class DoctorService {
 
     if (!newUser) throw new Error("ERROR_CREATING_USER");
 
-    const newDoctor: doctorOIF = await daoDoctor.create({
+    const newDoctor: doctorOIF = await this.daoDoctor.create({
       id,
       id_user,
       id_specialty: data.id_specialty,
@@ -75,13 +80,13 @@ export default class DoctorService {
 
   /**  LIST DOCTORS **/
   async list(page: number, size: number) {
-    return await daoDoctor.list(page, size);
+    return await this.daoDoctor.list(page, size);
   }
 
   /**  FIND BY ID **/
   async findByID(id: string) {
     if (!isValidUuid(id)) throw new Error("INVALID_ID");
-    const doctor: doctorOIF = await daoDoctor.findByID(id);
+    const doctor: doctorOIF = await this.daoDoctor.findByID(id);
     if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
     return doctor;
   }
@@ -89,19 +94,19 @@ export default class DoctorService {
   /**  UPDATE DATA **/
   async updateData(id: string, data: userUpdateIF) {
     if (!isValidUuid(id)) throw new Error("INVALID_ID");
-    const doctor: doctorOIF = await daoDoctor.findByID(id);
+    const doctor: doctorOIF = await this.daoDoctor.findByID(id);
 
     if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
-    return await daoDoctor.updateUser(id, data);
+    return await this.daoDoctor.updateUser(id, data);
   }
 
   /**  UPDATE MAIL **/
   async updateMail(id: string, mail: string) {
     if (!isValidUuid(id)) throw new Error("INVALID_ID");
 
-    const doctor: doctorOIF = await daoDoctor.findByID(id);
+    const doctor: doctorOIF = await this.daoDoctor.findByID(id);
     if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
-    return await daoDoctor.changeMail(doctor.user.id, mail);
+    return await this.daoDoctor.changeMail(doctor.user.id, mail);
   }
 
   /**  UPDATE SPECIALTY **/
@@ -109,25 +114,27 @@ export default class DoctorService {
     if (!isValidUuid(id) || !isValidUuid(id_specialty))
       throw new Error("INVALID_ID");
 
-    const doctor: doctorOIF = await daoDoctor.findByID(id);
+    const doctor: doctorOIF = await this.daoDoctor.findByID(id);
     if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
-    const specialty: specialtiesOIF = await daoSpecialty.findByID(id_specialty);
+    const specialty: specialtiesOIF = await this.daoSpecialty.findByID(
+      id_specialty
+    );
     if (!specialty) throw new Error("SPECIALTY_NOT_FOUND");
 
-    return await daoDoctor.updateSpecialty(id, id_specialty);
+    return await this.daoDoctor.updateSpecialty(id, id_specialty);
   }
 
   /**  ADD SCHEDULE **/
   async addSchedule(data: schedulesBIF) {
     if (!isValidUuid(data.id_doctor)) throw new Error("INVALID_ID");
 
-    const doctor: doctorOIF = await daoDoctor.findByID(data.id_doctor);
+    const doctor: doctorOIF = await this.daoDoctor.findByID(data.id_doctor);
     if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
 
-    const day: dayOIF = await daoDay.findByName(data.day);
+    const day: dayOIF = await this.daoDay.findByName(data.day);
     if (!day) throw new Error("DAY_NOT_FOUND");
 
-    return await daoDoctor.addSchedule({
+    return await this.daoDoctor.addSchedule({
       ...data,
       id: `${uuid()}`,
       id_day: day.id,
@@ -138,24 +145,24 @@ export default class DoctorService {
   async updateSchedule(data: schedulesBIF) {
     if (!isValidUuid(data.id_doctor)) throw new Error("INVALID_ID");
 
-    const doctor: doctorOIF = await daoDoctor.findByID(data.id_doctor);
+    const doctor: doctorOIF = await this.daoDoctor.findByID(data.id_doctor);
     if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
 
-    const day: dayOIF = await daoDay.findByName(data.day);
+    const day: dayOIF = await this.daoDay.findByName(data.day);
     if (!day) throw new Error("DAY_NOT_FOUND");
 
-    return await daoDoctor.updateSchedule({ ...data, id_day: day.id });
+    return await this.daoDoctor.updateSchedule({ ...data, id_day: day.id });
   }
 
   /**  DELETE SCHEDULE **/
   async deleteSchedule(id_doctor: string, name_day: string) {
     if (!isValidUuid(id_doctor)) throw new Error("INVALID_ID");
-    const doctor: doctorOIF = await daoDoctor.findByID(id_doctor);
+    const doctor: doctorOIF = await this.daoDoctor.findByID(id_doctor);
     if (!doctor) throw new Error("DOCTOR_NOT_FOUND");
 
-    const day: dayOIF = await daoDay.findByName(name_day);
+    const day: dayOIF = await this.daoDay.findByName(name_day);
     if (!day) throw new Error("DAY_NOT_FOUND");
 
-    return await daoDoctor.deleteSchedule(id_doctor, day.id);
+    return await this.daoDoctor.deleteSchedule(id_doctor, day.id);
   }
 }

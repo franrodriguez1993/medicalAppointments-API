@@ -1,16 +1,19 @@
 import { Request, Response } from "express";
 import SpecialtyService from "../services/specialty.services";
-import logger from "../../../utils/logger";
 import ResponseEntity from "../../../utils/ResponseEntity";
 
-const service = new SpecialtyService();
-
 export default class SpecialtyController {
+  private service: SpecialtyService;
+
+  constructor() {
+    this.service = new SpecialtyService();
+  }
+
   /**  CREATE SPECIALTY  **/
-  async create(req: Request, res: Response) {
+  create = async (req: Request, res: Response) => {
     try {
       const data = req.body;
-      const resService = await service.create(data);
+      const resService = await this.service.create(data);
       return res
         .status(201)
         .json(new ResponseEntity(201, "SPECIALTY_CREATED", resService.id));
@@ -28,14 +31,14 @@ export default class SpecialtyController {
         }
       }
     }
-  }
+  };
 
   /**  DELETE SPECIALTY  **/
-  async delete(req: Request, res: Response) {
+  delete = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
 
-      await service.delete(id);
+      await this.service.delete(id);
 
       return res
         .status(200)
@@ -54,5 +57,5 @@ export default class SpecialtyController {
         }
       }
     }
-  }
+  };
 }

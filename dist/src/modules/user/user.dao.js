@@ -110,10 +110,10 @@ class UserDao {
             try {
                 const user = yield user_model_1.default.findOne({ where: { id } });
                 if (user.mail === mail)
-                    return "MAIL_IS_THE_SAME";
+                    throw new Error("MAIL_IS_THE_SAME");
                 const checkMail = yield user_model_1.default.findOne({ where: { mail } });
                 if (checkMail)
-                    return "MAIL_IN_USE";
+                    throw new Error("MAIL_IN_USE");
                 return yield user_model_1.default.update({ mail }, { where: { id } });
             }
             catch (e) {

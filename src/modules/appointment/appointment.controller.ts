@@ -1,17 +1,21 @@
 import { Request, Response } from "express";
 import AppointmentService from "./appointment.services";
-import logger from "../../utils/logger";
+
 import ResponseEntity from "../../utils/ResponseEntity";
 
-const service = new AppointmentService();
-
 export default class AppointmentController {
+  private service: AppointmentService;
+
+  constructor() {
+    this.service = new AppointmentService();
+  }
+
   /**  CREATE  **/
-  async create(req: Request, res: Response) {
+  create = async (req: Request, res: Response) => {
     try {
       const data = req.body;
 
-      const resService = await service.create(data);
+      const resService = await this.service.create(data);
 
       return res
         .status(201)
@@ -40,15 +44,18 @@ export default class AppointmentController {
         }
       }
     }
-  }
+  };
 
   /**  LIST APPOINTMENT  **/
-  async listAppointment(req: Request, res: Response) {
+  listAppointment = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const { date } = req.query;
 
-      const resService = await service.listAppointment(id, date.toString());
+      const resService = await this.service.listAppointment(
+        id,
+        date.toString()
+      );
 
       return res.status(200).json(new ResponseEntity(200, "OK", resService));
     } catch (e: unknown) {
@@ -69,14 +76,14 @@ export default class AppointmentController {
         }
       }
     }
-  }
+  };
 
   /**   DELETE APPOINTMENT **/
-  async deleteOne(req: Request, res: Response) {
+  deleteOne = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
 
-      await service.deleteOne(id);
+      await this.service.deleteOne(id);
       return res
         .status(200)
         .json(new ResponseEntity(200, "APPOINTMENT_DELETED", null));
@@ -94,5 +101,5 @@ export default class AppointmentController {
         }
       }
     }
-  }
+  };
 }

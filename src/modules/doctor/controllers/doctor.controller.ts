@@ -3,15 +3,19 @@ import DoctorService from "../services/doctor.services";
 import logger from "../../../utils/logger";
 import ResponseEntity from "../../../utils/ResponseEntity";
 
-const service = new DoctorService();
-
 export default class DoctorController {
+  private service: DoctorService;
+
+  constructor() {
+    this.service = new DoctorService();
+  }
+
   /**  CREATE  **/
-  async create(req: Request, res: Response) {
+  create = async (req: Request, res: Response) => {
     try {
       const data = req.body;
 
-      const resService = await service.create(data);
+      const resService = await this.service.create(data);
 
       return res
         .status(201)
@@ -42,14 +46,14 @@ export default class DoctorController {
         }
       }
     }
-  }
+  };
 
   /** LIST DOCTORS **/
-  async list(req: Request, res: Response) {
+  list = async (req: Request, res: Response) => {
     try {
       const page: number = parseInt(req.query.page as string);
       const size: number = parseInt(req.query.page as string);
-      const resService = await service.list(page, size);
+      const resService = await this.service.list(page, size);
 
       return res.status(200).json(new ResponseEntity(200, "OK", resService));
     } catch (e: unknown) {
@@ -57,14 +61,14 @@ export default class DoctorController {
         .status(500)
         .json(new ResponseEntity(500, "SERVER_ERROR", null));
     }
-  }
+  };
 
   /**  FIND BY ID  **/
-  async findByID(req: Request, res: Response) {
+  findByID = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
 
-      const resService = await service.findByID(id);
+      const resService = await this.service.findByID(id);
 
       return res.status(200).json(new ResponseEntity(200, "OK", resService));
     } catch (e: unknown) {
@@ -85,15 +89,15 @@ export default class DoctorController {
         }
       }
     }
-  }
+  };
 
   /**  UPDATE DATA  **/
-  async updateData(req: Request, res: Response) {
+  updateData = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const data = req.body;
 
-      const resService = await service.updateData(id, data);
+      const resService = await this.service.updateData(id, data);
 
       return res
         .status(200)
@@ -116,15 +120,15 @@ export default class DoctorController {
         }
       }
     }
-  }
+  };
 
   /**  UPDATE MAIL   **/
-  async updateMail(req: Request, res: Response) {
+  updateMail = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const mail = req.body.mail;
 
-      const resService = await service.updateMail(id, mail);
+      const resService = await this.service.updateMail(id, mail);
 
       return res
         .status(200)
@@ -149,15 +153,15 @@ export default class DoctorController {
         }
       }
     }
-  }
+  };
 
   /**  UPDATE SPECIALTY   **/
-  async updateSpecialty(req: Request, res: Response) {
+  updateSpecialty = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const { id_specialty } = req.body;
 
-      const resService = await service.updateSpecialty(id, id_specialty);
+      const resService = await this.service.updateSpecialty(id, id_specialty);
 
       return res
         .status(200)
@@ -181,15 +185,15 @@ export default class DoctorController {
         }
       }
     }
-  }
+  };
 
   /**  ADD SCHEDULE **/
-  async addSchedule(req: Request, res: Response) {
+  addSchedule = async (req: Request, res: Response) => {
     try {
       const data = req.body;
       const { id } = req.params;
 
-      await service.addSchedule({ ...data, id_doctor: id });
+      await this.service.addSchedule({ ...data, id_doctor: id });
 
       return res
         .status(201)
@@ -214,15 +218,15 @@ export default class DoctorController {
         }
       }
     }
-  }
+  };
 
   /**  UPDATE SCHEDULE **/
-  async updateSchedule(req: Request, res: Response) {
+  updateSchedule = async (req: Request, res: Response) => {
     try {
       const data = req.body;
       const { id } = req.params;
 
-      await service.updateSchedule({
+      await this.service.updateSchedule({
         ...data,
         id_doctor: id,
       });
@@ -250,14 +254,14 @@ export default class DoctorController {
         }
       }
     }
-  }
+  };
 
   /**  DELETE SCHEDULE **/
-  async deleteSchedule(req: Request, res: Response) {
+  deleteSchedule = async (req: Request, res: Response) => {
     try {
       const { id, day } = req.params;
 
-      await service.deleteSchedule(id, day);
+      await this.service.deleteSchedule(id, day);
 
       return res
         .status(201)
@@ -282,5 +286,5 @@ export default class DoctorController {
         }
       }
     }
-  }
+  };
 }

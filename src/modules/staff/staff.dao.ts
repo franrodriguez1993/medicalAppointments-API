@@ -116,7 +116,7 @@ export default class StaffDao extends UserDao {
     try {
       const staff: staffOIF = await Staff.findOne({ where: { id } });
       const checkPass = await verifyEncrypt(password, staff.password);
-      if (checkPass) return "PASSWORD_IS_THE_SAME";
+      if (checkPass) throw new Error("PASSWORD_IS_THE_SAME");
 
       const hashPass = await encrypt(password);
       return await Staff.update({ password: hashPass }, { where: { id } });
