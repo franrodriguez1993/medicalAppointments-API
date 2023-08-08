@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
-const configServer_1 = __importDefault(require("./config/configServer"));
 require("dotenv/config");
+const cors_1 = __importDefault(require("cors"));
+const express_1 = __importDefault(require("express"));
+const configServer_1 = __importDefault(require("./config/configServer"));
 /**   ROUTERS    **/
 const staff_routes_1 = __importDefault(require("./modules/staff/staff.routes"));
 const specialty_routes_1 = __importDefault(require("./modules/doctor/routes/specialty.routes"));
@@ -15,7 +15,9 @@ const patient_routes_1 = __importDefault(require("./modules/patient/patient.rout
 const appointment_routes_1 = __importDefault(require("./modules/appointment/appointment.routes"));
 const app = (0, express_1.default)();
 /**   CORS    **/
-const urlList = [configServer_1.default.cors.url];
+const urlcors = configServer_1.default.cors.url;
+const urlList = [];
+urlList.push(urlcors);
 const corsOptions = {
     credentials: true,
     origin: function (origin, callback) {
