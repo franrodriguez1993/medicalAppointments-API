@@ -1,4 +1,6 @@
 import express from "express";
+import cors from "cors";
+import configServer from "./config/configServer";
 import "dotenv/config";
 
 /**   ROUTERS    **/
@@ -10,7 +12,28 @@ import routerAppointment from "./modules/appointment/appointment.routes";
 
 const app = express();
 
+/**   CORS    **/
+const urlList: Array<string> = [configServer.cors.url];
+
+const corsOptions = {
+  credentials: true,
+  origin: function (origin: any, callback: any) {
+    if (!origin) {
+      return callback(null, true);
+    }
+    if (urlList.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
+
+/** ENDPOINTS  **/
 app.use("/api/v1/staff", staffRouter);
 app.use("/api/v1/specialty", SpecialtyRouter);
 app.use("/api/v1/doctor", doctorRouter);
